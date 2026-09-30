@@ -1,0 +1,1 @@
+{"id":"classify","backend":"ollama","endpoint":"http://127.0.0.1:11434","model":"REPLACE_WITH_AN_INSTALLED_LOCAL_MODEL","timeout":120,"retries":0,"required_capabilities":["noninteractive","structured_output"]}

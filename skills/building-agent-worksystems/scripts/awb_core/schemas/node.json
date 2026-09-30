@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "backend", "timeout", "output_schema"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+    "backend": {"enum": ["command", "codex", "ollama"]},
+    "timeout": {"type": "number", "exclusiveMinimum": 0},
+    "output_schema": {"type": ["object", "boolean"]},
+    "side_effect": {"enum": ["none", "unknown", "idempotent"]},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "retries": {"type": "integer", "minimum": 0, "maximum": 2},
+    "repeat": {"type": "integer", "minimum": 1, "maximum": 10},
+    "input_files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "required_capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "allOf": [{"if": {"required": ["side_effect"], "properties": {"side_effect": {"const": "idempotent"}}}, "then": {"required": ["idempotency_key"]}}]
+}

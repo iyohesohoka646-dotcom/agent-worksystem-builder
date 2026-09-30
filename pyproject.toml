@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=65.5", "wheel>=0.40"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-worksystem-builder"
+version = "0.1.0a1"
+description = "Evidence-backed, resumable construction of agent work systems"
+requires-python = ">=3.11"
+dependencies = ["jsonschema==4.26.0", "httpx==0.28.1"]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+
+[project.scripts]
+awb = "awb_core.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["skills/building-agent-worksystems/scripts"]
+
+[tool.setuptools.package-data]
+awb_core = ["schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["skills/building-agent-worksystems/scripts"]
+addopts = "-ra"
+markers = ["live: requires explicitly configured real model backend"]

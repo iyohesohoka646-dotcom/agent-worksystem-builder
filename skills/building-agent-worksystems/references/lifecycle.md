@@ -1,0 +1,9 @@
+# Lifecycle and concrete entrypoints
+
+Goal/specification JSON describes the intended system. SQLite holds transactional records and history. Evidence files support observations. `build_id` and `cycle_id` identify construction; runs, nodes and attempts have distinct identifiers. Goal mirrors and handoff summaries are recoverable views of versioned records.
+
+Start a cycle with `awb cycle --action start --file CYCLE.json --project PROJECT`. The file should include hypothesis, requirement IDs, baseline, change scope, verification plan and limits. Then transition with `--action transition --id CYCLE --status implementing`, prepare a candidate with `--action prepare --id CYCLE --file FILES.json`, inspect the returned manifest, and apply it with `--action apply --change-id CHANGE`. Candidate JSON has a `files` mapping from relative path to UTF-8 content or null for a managed deletion.
+
+Run the target system. Transition the cycle to `verifying`, then run the independent verifier with `awb verify --id RUN --cycle-id CYCLE --change-id CHANGE --reference REFERENCE.json`. Transition to `deciding`, then submit a decision JSON through `awb cycle --action decide --id CYCLE --file DECISION.json`. A decision contains `action`, `reason`, `evidence_refs`, rejected alternatives and reconsideration triggers as appropriate. Failed evidence must lead to revision, replacement, rollback or waiting; it cannot authorize acceptance.
+
+The materials command is `awb run --input RELATIVE_INPUT --project PROJECT`; the default uses explicit deterministic rules. Supply `--backend CONFIG.json --max-calls N --max-seconds S` for a model. For a graph use `--graph GRAPH.json --task TASK.json --max-calls N --concurrency N`. Normalized node output is not semantic acceptance. `awb status`, `awb review`, `awb resume --id RUN` and `awb export --output NEW.zip` are independent of the original conversation.

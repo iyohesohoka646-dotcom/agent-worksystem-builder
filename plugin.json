@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agent-worksystem-builder",
+  "version": "0.1.0-alpha.1",
+  "description": "Build and improve resumable agent work systems with persistent goals, controlled changes, independent verification and human review.",
+  "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
+  "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+  "repository": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+  "keywords": ["agents", "workflow", "verification", "recovery", "codex"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Agent Worksystem Builder",
+        "shortDescription": "Build resumable work systems",
+        "longDescription": "Turn a recurring task into a working local system. Record goals and decisions, apply owned-file changes, run bounded command or model nodes, collect independent task evidence, request human review and resume from saved state. Includes a Python CLI and a materials-processing example. Requires Python 3.11+ and the packaged Python dependencies. This alpha has Windows runtime coverage; live Ollama, Claude Code and user acceptance remain pending.",
+        "developerName": "iyohesohoka646-dotcom",
+        "category": "Productivity",
+        "capabilities": ["Build local workflows", "Verify artifacts", "Resume saved runs", "Request human review"],
+        "websiteURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+        "supportURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues",
+        "privacyPolicyURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/TERMS.md",
+        "defaultPrompt": ["Build a local workflow for processing materials with human review.", "Resume my saved work system and check the next task."],
+        "brandColor": "#225C60",
+        "brandColorDark": "#78D7CC",
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg"
+      },
+      "onboardingSkill": "./skills/building-agent-worksystems/SKILL.md",
+      "publication": {
+        "release_notes": "Initial alpha with resumable local state, controlled changes, evidence verification, human review and bounded execution.",
+        "translations": {
+          "zh-CN": {"subtitle": "构筑可恢复的智能体工作系统", "description": "将重复任务构筑为可运行的本地系统，保存目标与决策、执行受控变更、核验任务证据、请求人工复核并恢复运行。需要 Python 3.11 及随包声明的依赖，当前为 alpha 版本。"}
+        }
+      }
+    }
+  }
+}

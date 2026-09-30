@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "attempt_id", "node_id", "backend", "status", "result", "verification", "usage", "logs"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "node_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+    "backend": {"enum": ["command", "codex", "ollama"]},
+    "status": {"enum": ["completed", "failed", "timed_out", "cancelled", "budget_exhausted"]},
+    "verification": {"const": "unverified"},
+    "usage": {"type": "object", "required": ["cost"]},
+    "logs": {"type": "object", "required": ["stdout", "stderr"], "properties": {"stdout": {"type": "string"}, "stderr": {"type": "string"}}}
+  }
+}

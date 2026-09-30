@@ -1,0 +1,23 @@
+{
+  "name": "agent-worksystem-builder",
+  "version": "0.1.0-alpha.1",
+  "description": "Build resumable agent work systems with persistent goals, controlled changes, independent verification and human review.",
+  "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
+  "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+  "repository": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Worksystem Builder",
+    "shortDescription": "Build resumable work systems",
+    "longDescription": "Construct, verify and resume local agent work systems. Requires Python 3.11+ and the packaged Python dependencies. Alpha runtime; see delivery status for untested hosts and task acceptance.",
+    "developerName": "iyohesohoka646-dotcom",
+    "category": "Productivity",
+    "capabilities": ["Build local workflows", "Verify artifacts", "Resume saved runs", "Request human review"],
+    "websiteURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
+    "supportURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues",
+    "privacyPolicyURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/TERMS.md",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}

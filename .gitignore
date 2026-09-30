@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+build/
+dist/
+.superpowers/
+.worksystem-build/
+workspaces/
+.env
+/reports/
+/docs/specs/
+/docs/progress.md
+/docs/implementation-plan.md
+/docs/review.md
