@@ -11,13 +11,21 @@ codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --re
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 ```
 
+也可下载版本中的插件 ZIP，解压后使用本地安装目录；这条路径适用于 Git 连接受限的环境。
+
+```powershell
+Expand-Archive ./agent-worksystem-builder-0.1.0-alpha.1-plugin.zip ./awb-plugin
+codex plugin marketplace add ./awb-plugin/agent-worksystem-builder
+codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
+```
+
 在新会话中使用 `agent-worksystem-builder:building-agent-worksystems`，例如：“使用 Agent Worksystem Builder，把这批材料处理成可人工复核、可恢复运行的系统。”插件会查看现有项目、记录目标与验收条件，再执行构筑循环。Python 工具要求 Python 3.11+，依赖列在 Skill 内的 `requirements.txt`；首次使用时在目标项目创建 `.venv` 并安装这些依赖。
 
 独立运行或开发时克隆仓库，在项目目录执行：
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install --no-user -e .
 .\.venv\Scripts\python.exe tools/demo.py --project workspaces/materials-demo
 .\.venv\Scripts\python.exe skills/building-agent-worksystems/scripts/awb.py status --project workspaces/materials-demo --json
 ```
@@ -50,7 +58,7 @@ awb verify --id RUN_ID --reference reference.json --project workspaces/my-projec
 ## 验证与发布
 
 ```powershell
-python -m pip install -e .[test]
+python -m pip install --no-user -e .[test]
 python -m pytest -q -p no:cacheprovider
 python tools/verify.py
 python tools/package_plugin.py

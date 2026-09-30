@@ -9,7 +9,7 @@ metadata:
 
 Requirements: Python 3.11+ with jsonschema and httpx. Probe host tools and backend capabilities before use; strict isolation requires an independently verified host boundary.
 
-Check the interpreter's imports before calling the runtime. If dependencies are missing, create a virtual environment inside the user's target project and install this Skill's `requirements.txt` there, subject to the user's existing network constraints. Use that interpreter for subsequent commands. Never put project state into the plugin cache.
+Check the interpreter's imports before calling the runtime. If dependencies are missing, create a virtual environment inside the user's target project and install this Skill's `requirements.txt` there with `python -m pip install --no-user -r PATH`, subject to the user's existing network constraints. Use that interpreter for subsequent commands. Never put project state into the plugin cache.
 
 Help the user obtain a working system they can run, inspect, recover and change. Keep the user's original purpose and explicit limits visible while choosing the smallest useful implementation. Deterministic scripts, human decisions and model calls are all valid nodes; add orchestration only when the task needs it.
 

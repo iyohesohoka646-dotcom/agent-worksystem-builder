@@ -11,7 +11,7 @@ from awb_core.contracts import file_digest, read_json, write_json
 
 def package(output=None):
     manifest = read_json(ROOT / "plugin.json")
-    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", "README.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py")]
+    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py")]
     paths += [p for folder in (ROOT / "skills", ROOT / "assets", ROOT / "examples") for p in folder.rglob("*")
               if p.is_file() and "__pycache__" not in p.parts and not p.name.endswith((".pyc", ".pyo"))]
     paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md")]

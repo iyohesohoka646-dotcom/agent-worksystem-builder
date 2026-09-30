@@ -74,13 +74,18 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--marketplace-source", help="Also validate a published Git marketplace instead of the local archive")
     parser.add_argument("--ref", help="Pin the published marketplace revision")
+    parser.add_argument("--archive", type=Path, help="Validate a downloaded release archive")
     options = parser.parse_args()
     receipt = package()
+    if options.archive:
+        from awb_core.contracts import file_digest
+        if file_digest(options.archive) != receipt["sha256"]:
+            raise ValueError("Downloaded release archive does not match the local receipt")
     binary = executable({})
     report = {"version": receipt["version"], "archive_sha256": receipt["sha256"], "checks": []}
     with tempfile.TemporaryDirectory(prefix="awb-plugin-") as temporary:
         root = Path(temporary)
-        with zipfile.ZipFile(ROOT / "dist" / receipt["archive"]) as archive:
+        with zipfile.ZipFile(options.archive or ROOT / "dist" / receipt["archive"]) as archive:
             archive.extractall(root)
         catalog = read_json(ROOT / ".agents/plugins/marketplace.json")
         catalog["plugins"][0]["source"]["path"] = "./agent-worksystem-builder"
@@ -93,7 +98,11 @@ def main():
             [binary, "plugin", "list", "--json"],
         ]
         for args in commands:
-            result = subprocess.run(args, cwd=root, env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+            try:
+                result = subprocess.run(args, cwd=root, env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+            except subprocess.TimeoutExpired as exc:
+                report["checks"].append({"command": args[1:4], "returncode": 124, "stderr": "Native marketplace command exceeded 60 seconds"})
+                break
             report["checks"].append({"command": args[1:4], "returncode": result.returncode, "stdout": result.stdout, "stderr": result.stderr})
             if result.returncode:
                 break
