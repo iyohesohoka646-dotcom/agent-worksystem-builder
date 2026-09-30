@@ -1,5 +1,6 @@
 """Install the packaged plugin with native Codex in an isolated, credential-free home."""
 import json
+import argparse
 import os
 import queue
 import subprocess
@@ -70,6 +71,10 @@ def discover(binary, root, env):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--marketplace-source", help="Also validate a published Git marketplace instead of the local archive")
+    parser.add_argument("--ref", help="Pin the published marketplace revision")
+    options = parser.parse_args()
     receipt = package()
     binary = executable({})
     report = {"version": receipt["version"], "archive_sha256": receipt["sha256"], "checks": []}
@@ -83,7 +88,7 @@ def main():
         (root / "host-state").mkdir()
         env = dict(os.environ, CODEX_HOME=str(root / "host-state"))
         commands = [
-            [binary, "plugin", "marketplace", "add", str(root), "--json"],
+            [binary, "plugin", "marketplace", "add", options.marketplace_source or str(root), "--json"] + (["--ref", options.ref] if options.ref else []),
             [binary, "plugin", "add", "agent-worksystem-builder@agent-worksystem-builder-plugins", "--json"],
             [binary, "plugin", "list", "--json"],
         ]
@@ -99,7 +104,8 @@ def main():
             report["checks"].append({"command": ["installed awb.py", "--help"], "returncode": result.returncode, "stdout": result.stdout, "stderr": result.stderr})
         report["skill_discovery"] = discover(binary, root, env) if cached else {"passed": False}
         report["passed"] = bool(cached) and all(c["returncode"] == 0 for c in report["checks"]) and report["skill_discovery"]["passed"]
-    write_json(ROOT / "reports/plugin-install.json", report)
+    report["marketplace_source"] = options.marketplace_source or "local archive"
+    write_json(ROOT / "reports" / ("plugin-remote-install.json" if options.marketplace_source else "plugin-install.json"), report)
     print(json.dumps(report, ensure_ascii=False))
     return 0 if report["passed"] else 1
 
