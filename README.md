@@ -1,69 +1,67 @@
-# Agent Worksystem Builder
+<p align="center">
+  <img src="assets/icon.svg" width="80" height="80" alt="Agent Worksystem Builder logo">
+</p>
 
-Build the intelligent system you need through dialogue, adaptive exploration, implementation and evidence.
+<h1 align="center">Agent Worksystem Builder</h1>
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Quick start](docs/quickstart.md) · [Upgrade / rollback](docs/upgrade-0.2.md)
+<p align="center">From an idea to a complete intelligent system — inside Codex.</p>
+
+<p align="center">
+  English · <a href="README.zh-CN.md">简体中文</a> · <a href="#get-started">Get started</a> · <a href="docs/quickstart.md">User guide</a>
+</p>
 
 [![Runtime and distribution CI](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
 
-An experimental Codex plugin for automatically designing, orchestrating, implementing and improving **whole intelligent systems**. Continuous requirement and decision grilling preserves the original goal. An evaluate → create → verify → decide loop explores alternatives, implements authorized changes, checks real software and returns consequential trade-offs to you. Use it inside Codex; the plugin has no separate website, web workbench or always-on service.
+**Describe the system you want. Explore the choices. Build and verify it with Codex.**
 
-## Three layers, open architecture
+Agent Worksystem Builder (AWB) is a Codex plugin for designing, orchestrating, implementing and improving complete intelligent systems through ongoing conversation. It connects requirements, software architecture and optional intelligence orchestration in one construction process — from ordinary programs, interfaces and services to models, agents, Skills, plugins and MCP.
 
-| Layer | Responsibility |
-|---|---|
-| Builder | Your native Codex conversation understands the goal, explores choices, builds and verifies. |
-| Target system | Ordinary software: programs, UI, services, storage, scheduling, interfaces and deployment, composed to suit the task. |
-| Optional intelligence | Interactive and noninteractive participation; models, agents, Skills, plugins, MCP, tools, context, permissions and budgets. |
+Experimental preview: **0.2.0-alpha.1**. See [current capabilities and validation status](docs/delivery-status.md).
 
-The target can run after the Builder conversation closes. It owns its business data. It does not have to adopt AWB's DAG, SQLite or a controller agent. A deterministic program is the right outcome when AI is unnecessary.
+## Why AWB?
 
-## One coordinator, five focused Skills
+- **Keep the whole goal in view.** Revisit requirements and consequential decisions as new evidence appears, and check the complete goal before delivery.
+- **Explore before committing.** Discover existing resources, research alternatives and try prototypes; adapt the search to the task, uncertainty and budget.
+- **Choose architecture that fits.** Compose software and intelligence separately. Your target owns its runtime and data; use deterministic code when AI adds no value.
 
-| Skill | Role |
-|---|---|
-| building-agent-worksystems | Coordinate the whole-goal construction loop and resumption. |
-| awb-clarify | Ongoing grill: requirements, unanswered questions, consequential decisions and reasons. |
-| awb-explore | Environment/resource discovery, primary-source research, architecture candidates, prototype trials and comparison. |
-| awb-design | Suitable software architecture and a separate intelligence profile. |
-| awb-execute | Authorized engineering and bounded interactive/noninteractive integration. |
-| awb-verify | Actual program/service/artifact/domain checks, whole-goal coverage and recovery. |
+## Get started
 
-Modules share versioned ArchitecturePlan, IntelligenceProfile and ExplorationRecord contracts, the original goal and immutable evidence. They are composable instructions, not automatically spawned agents. A successful local candidate does not complete uncovered requirements.
-
-## Try these requests
-
-> Build a task workbench with a UI, service and persistent tasks. Use interactive Codex to discuss tasks and noninteractive Codex to execute them; ordinary code must check the actual outputs. Make it usable after this conversation closes.
-
-> Preserve my existing application's API and tests. Explore where intelligence helps, compare alternatives and add only the justified participation points. Pause for credentials, costs or changed data destinations.
-
-> Build a deterministic CSV summary tool. If ordinary code is enough, do not add model calls, agents or a service.
-
-The materials-classification example remains available; it is one domain example.
-
-System-level goals can span multiple projects, task types, component dependencies, events/scheduling and intelligence participation points, with architecture chosen through exploration and decisions. See [system-level construction](docs/system-level-construction.md). `examples/task-workbench` is only a local dual-mode/recovery sample; it has no project model or cross-task scheduler and cannot replace the complete product or representative system-level human acceptance.
-
-## Implemented and validated are separate
-
-The 0.2.0-alpha.1 **unreleased candidate** includes persistent contracts/grill/exploration, review-bound configuration, scoped workspace writes, app-server sessions/approvals/events, exec structured results, registered verifiers, goal coverage and three standalone example paths.
-
-Actual Codex 0.158.0 access on C:/codex passed in both modes using the user-approved gpt-6-sol / max override. gpt-6.1-sol was unsupported on this login. Existing provider configuration and rules are inherited; no new account, key or paid service is provisioned.
-
-Engineering tests and access probes do not establish improved construction behavior. The qualification matrix is six cases × four conditions × five repeats = 120 complete attempts, with simulated users, actual artifact/run checks, frozen resources and bounded attempts. Human trial and official-directory review remain separate gates. Current evidence and limitations: [delivery status](docs/delivery-status.md), [evaluation protocol in the source repository](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/evals/README.md).
-
-## Install
-
-The six-Skill **0.2 candidate plugin** is delivered separately from development resources: [plugin ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip), [integrity manifest](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.manifest.json). The ZIP contains no example application, HTML UI or evaluation jobs. Qualified version release remains pending; [alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4) and its immutable downloads remain available for rollback.
-
-Install the current source candidate:
+Install in Codex:
 
 ~~~powershell
 codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref main
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 ~~~
 
-For ZIP installation or restricted Git access, use the [local marketplace steps](docs/quickstart.md). Open a new Codex conversation and select `agent-worksystem-builder:building-agent-worksystems`, then describe your whole system goal. No website needs to be launched. Python runtime: Python 3.11+; reuse a compatible project environment and run the bundled doctor. Keep business/build data outside the plugin cache.
+Open a new Codex conversation, select `agent-worksystem-builder:building-agent-worksystems` and describe your goal. Everything starts in that conversation; no AWB website or Builder service is required.
 
-The optional local MCP retains its eight materials tools and two resources. Broader construction uses native Skills/CLI; MCP is not enabled automatically. A Skill-suite ZIP is not a plugin-upload ZIP, and the Python wheel does not include Skills. ChatGPT import and official listing are not confirmed.
+> My goal is: &lt;describe your workflow, existing project or system idea&gt;.
+>
+> Use AWB to discover existing resources, discuss key requirements and explore architecture choices. Then implement and verify the complete system. Preserve existing interfaces and unrelated changes; discuss major trade-offs with me.
 
-[Architecture](docs/plugin-architecture.md) · [Runtime interfaces](docs/interfaces.md) · [Bilingual sharing text](docs/share.md) · [Issues](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues)
+Prefer a ZIP? [Download the plugin](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip) and follow the [installation guide](docs/quickstart.md). Shared Python tooling requires Python 3.11+; dependency setup is in the guide.
+
+## How it works
+
+**Discuss the goal → explore options → design → implement → verify → decide what comes next.**
+
+Requirements grilling continues throughout the work: reuse earlier answers, investigate discoverable facts and return consequential choices to you. The evaluate–create–verify–decide loop can revisit a design when evidence, goals or budgets change.
+
+One coordinator composes five focused Skills: **clarify, explore, design, execute and verify**. Together they address the target's overall software architecture and its optional intelligence layer, including interactive and noninteractive participation, models, resources and permissions. See [architecture and module responsibilities](docs/plugin-architecture.md).
+
+## Build for your workflow
+
+Possible starting points — the architecture follows your needs:
+
+- **A new system:** coordinate multiple projects, task types, data flows, services and intelligent participation points.
+- **An existing application:** preserve its interfaces and tests, and add intelligence where exploration shows it is useful.
+- **A focused tool:** deliver a standalone program without unnecessary model calls, agents or services.
+
+The design space is open. [System-level construction](docs/system-level-construction.md) explains how these pieces fit together.
+
+## Explore the project
+
+- **Use it:** [installation and first conversation](docs/quickstart.md) · [upgrade and rollback](docs/upgrade-0.2.md)
+- **Understand it:** [plugin architecture](docs/plugin-architecture.md) · [runtime interfaces](docs/interfaces.md)
+- **Check the evidence:** [delivery status and limitations](docs/delivery-status.md) · [evaluation protocol](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/evals/README.md) · [engineering CI](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
+- **Join in:** [report a problem or propose an idea](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues) · [bilingual project introduction](docs/share.md)
