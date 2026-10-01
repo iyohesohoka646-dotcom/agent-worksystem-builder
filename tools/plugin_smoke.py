@@ -19,7 +19,7 @@ from package_plugin import package
 from awb_core.process import WindowsJob, resume_owned_process
 
 
-def discover(binary, root, env):
+def discover(binary, root, env, plugin_id="agent-worksystem-builder@agent-worksystem-builder-plugins"):
     messages = queue.Queue()
     job = None
     with (root / "app-server.stderr.log").open("wb") as stderr:
@@ -55,8 +55,10 @@ def discover(binary, root, env):
             send({"id": 2, "method": "skills/list", "params": {"cwds": [str(root)], "forceReload": True}})
             response = receive(2)
             skills = [s for entry in response.get("result", {}).get("data", []) for s in entry["skills"]
-                      if s.get("pluginId") == "agent-worksystem-builder@agent-worksystem-builder-plugins"]
-            return {"passed": any(s["enabled"] and s["name"].endswith("building-agent-worksystems") for s in skills), "skills": skills}
+                      if s.get("pluginId") == plugin_id]
+            required = {"building-agent-worksystems", "awb-clarify", "awb-design", "awb-execute", "awb-verify"}
+            enabled = {s["name"].split(":")[-1] for s in skills if s["enabled"]}
+            return {"passed": required.issubset(enabled), "skills": skills}
         except (queue.Empty, OSError) as exc:
             return {"passed": False, "error": str(exc)}
         finally:

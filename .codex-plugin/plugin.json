@@ -1,6 +1,6 @@
 {
   "name": "agent-worksystem-builder",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.4",
   "description": "Build resumable agent work systems with persistent goals, controlled changes, independent verification and human review.",
   "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
   "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",

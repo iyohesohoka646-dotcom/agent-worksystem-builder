@@ -5,7 +5,7 @@ import hashlib
 import re
 import sqlite3
 import uuid
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -73,7 +73,7 @@ class Store:
         if root.exists():
             raise AWBError("project", "Project state already exists")
         root.mkdir()
-        with sqlite3.connect(root / "state.sqlite") as db:
+        with closing(sqlite3.connect(root / "state.sqlite")) as db, db:
             db.executescript("""
                 PRAGMA journal_mode=WAL;
                 PRAGMA synchronous=FULL;

@@ -79,8 +79,11 @@ def test_uncertain_timeout_is_not_automatically_retried(tmp_path):
     from awb_core.execution import execute_node, Budget
     counter = tmp_path / "counter.txt"
     code = f"from pathlib import Path; import time; p=Path({str(counter)!r}); p.write_text((p.read_text() if p.exists() else '')+'x'); time.sleep(5)"
-    result = execute_node(process_node(code) | {"retries": 2, "timeout": 0.4, "side_effect": "unknown"}, {}, {"workspace": tmp_path}, Budget(3, 5))
+    # Leave startup headroom: this regression needs the side effect before timeout.
+    result = execute_node(process_node(code) | {"retries": 2, "timeout": 2, "side_effect": "unknown"}, {}, {"workspace": tmp_path}, Budget(3, 8))
+    assert result["status"] == "timed_out"
     assert len(result["attempts"]) == 1
+    assert counter.exists(), result
     assert counter.read_text() == "x"
 
 

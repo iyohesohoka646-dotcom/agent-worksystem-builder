@@ -1,0 +1,6 @@
+interface:
+  display_name: "AWB Requirements"
+  short_description: "Clarify work-system goals and acceptance"
+  default_prompt: "Use $awb-clarify to clarify my work-system goal and acceptance criteria."
+policy:
+  allow_implicit_invocation: true

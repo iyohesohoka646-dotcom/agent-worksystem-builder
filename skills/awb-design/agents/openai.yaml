@@ -1,0 +1,6 @@
+interface:
+  display_name: "AWB Architecture"
+  short_description: "Choose architecture and reuse existing tools"
+  default_prompt: "Use $awb-design to choose a minimal architecture and integration boundaries for my work system."
+policy:
+  allow_implicit_invocation: true

@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "skills" / "building-agent-worksystems" / "scripts
 from awb_core import __version__
 from awb_core.contracts import file_digest, read_json, write_json
 from awb_core.execution import probe_backend
+from package_plugin import SUITE_NAMES, package_skill_suite
 
 
 def command(args, log, timeout=180):
@@ -37,7 +38,7 @@ def main():
     receipt = {"source": str(original), "snapshot": str(source.relative_to(ROOT)), "sha256": file_digest(source), "matches_original": original.is_file() and file_digest(source) == file_digest(original)}
     write_json(ROOT / "docs/specs/source.json", receipt)
     result["checks"]["source_snapshot"] = receipt["matches_original"]
-    result["packages"] = {name: metadata.version(name) for name in ["pytest", "jsonschema", "httpx", "setuptools", "wheel"]}
+    result["packages"] = {name: metadata.version(name) for name in ["pytest", "jsonschema", "httpx", "setuptools", "wheel", "mcp"]}
     if not args.skip_tests:
         test = command([sys.executable, "-X", "utf8", "-m", "pytest", "-q", "-p", "no:cacheprovider", "--tb=short", "--junitxml", str(reports / "runtime-tests.xml")], reports / "runtime-tests.log")
         result["checks"]["runtime_tests"] = test
@@ -47,12 +48,10 @@ def main():
     result["live"]["claude_code"] = {"executable": shutil.which("claude"), "host_test": "not_run"}
     built = command([sys.executable, "-m", "pip", "wheel", ".", "--no-deps", "--no-build-isolation", "--wheel-dir", str(dist)], reports / "wheel-build.log")
     result["checks"]["wheel"] = built
-    bundle = dist / f"building-agent-worksystems-{__version__}.zip"
-    skill = ROOT / "skills" / "building-agent-worksystems"
-    with zipfile.ZipFile(bundle, "w", zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(skill.rglob("*")):
-            if path.is_file() and "__pycache__" not in path.parts:
-                archive.write(path, "building-agent-worksystems/" + path.relative_to(skill).as_posix())
+    suite = package_skill_suite()
+    bundle = dist / suite["archive"]
+    result["checks"]["portable_skill_suite"] = {"passed": set(suite["skills"]) == set(SUITE_NAMES),
+                                                "skills": suite["skills"], "sha256": suite["sha256"]}
     with tempfile.TemporaryDirectory(prefix="awb-package-") as temporary:
         with zipfile.ZipFile(bundle) as archive:
             archive.extractall(temporary)
@@ -60,12 +59,12 @@ def main():
     result["checks"]["portable_package"] = smoke
     result["artifacts"] = {p.name: file_digest(p) for p in dist.iterdir() if p.is_file()}
     result["release_qualified"] = False
-    result["pending_gates"] = ["matched behavioral comparisons", "real user acceptance", "Claude Code Skill host", "Ollama real local inference", "Linux execution"]
+    result["pending_gates"] = ["matched behavioral comparisons", "real user acceptance", "Claude Code Skill host", "Ollama real local inference", "current-version Linux CI"]
     if result["live"]["codex"].get("live_result", {}).get("status") != "completed":
         result["pending_gates"].append("Codex real inference")
     write_json(reports / "verification.json", result)
     print(json.dumps(result, ensure_ascii=False))
-    failed = any(v is False or (isinstance(v, dict) and v.get("returncode", 0) != 0) for v in result["checks"].values())
+    failed = any(v is False or (isinstance(v, dict) and (v.get("returncode", 0) != 0 or v.get("passed") is False)) for v in result["checks"].values())
     if args.live_codex and result["live"]["codex"].get("live_result", {}).get("status") != "completed":
         failed = True
     return int(failed)
