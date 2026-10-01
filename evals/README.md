@@ -1,5 +1,21 @@
 # Behavioral evaluation protocol
 
+## 0.2 full construction matrix
+
+`tools/evaluate_systems.py` uses systems.json: three families, development/holdout, four conditions and five repeats = 120 attempts. Freeze the user-approved gpt-6-sol/max override on C:/codex 0.158.0; both actual modes passed preflight, base provider/config/rules stay unchanged.
+
+Disable implicit Skills/plugins/MCP with process-local overlays and check native skills/list. Freeze alpha.4 from its immutable tag, current suite, corpus, external checker/gateway, host fingerprints and randomized order. Every condition gets the same trusted loopback gateway running real app-server and exec. This fixture constrains evaluation interfaces, not product architecture.
+
+Multi-turn responses select continued implementation, one question, completion or blockage. Questions use frozen **simulated-user** scripts. External graders launch targets, inspect outputs, preserve inputs, bind existing-project annotations and interactive discussion to real gateway answers, require task approval, restart business state and test backend replacement. Completion claims do not grade themselves. The workbench grader checks the expected execution output and a completed noninteractive call separately; this does not prove their binding or rejection of wrong node output. Those remain independent qualification gates.
+
+Limits: 30 host turns, eight observed code-tree change batches and 900 seconds including validation. Internal reasoning cycles are unobservable, recorded as a limitation. No hidden retries or reruns of attempted cells. Quota/access/isolation failures preserve checkpoints. Unknown usage remains null. A complete matrix alone does not establish qualification; real human trial and goal/hard-constraint review remain separate. No superiority claims before matched reviewed evidence. [Run/resume](../docs/upgrade-0.2.md).
+
+`tools/qualify_systems.py` creates a read-only, uniquely named snapshot without altering the frozen grader or running more construction. It checks bindings/integrity, preserved inputs, observed budgets, actual artifact results, question burden and per-scenario repetition stability. It leaves unmeasured usage and missing semantic/resource/recovery/human checks unknown. `release_qualified` remains false; a complete fixture matrix is not broad system-level acceptance. A deadline cleanup overrun remains visible rather than being subtracted from measured wall time.
+
+`tools/workbench_fault_probe.py` separately starts a copied workbench artifact with deterministic wrong-result and failing-backend nodes. It tests explicit rejection, output binding and absence of automatic retries, preserves original sources, and records exact HTTP responses and task state. It makes zero model calls and does not change the original attempt's budget, status or frozen grade. It is supplemental artifact evidence, not a construction retry, general-architecture proof or human qualification.
+
+## Retained single-turn development harness
+
 The scenario file separates development cases from holdout cases. All conditions receive the same raw task, fixture, declared permissions and limits. Baseline receives no dedicated Skill; generic receives only ordinary engineering guidance; Builder receives the portable Skill entrypoint and tool path. Expected JSON is a task output contract shared by all conditions, not a required internal architecture.
 
 `tools/evaluate.py` runs explicitly configured native host commands in separate workspaces and evaluates actual artifacts. It does not infer success from the host's final text. The host configuration is trusted local configuration with argv, allowed_executables, host_version, model, timeout and trusted=true; use `{workspace}` in arguments and read the supplied prompt from stdin. Set the host's own workspace sandbox and ephemeral-session options. Use a clean host home/session without implicit Builder or global Skills, otherwise the no-Skill baseline is contaminated. The driver cannot attest host isolation or declared model/host versions. Do not use an unsandboxed host to process untrusted evaluation fixtures.

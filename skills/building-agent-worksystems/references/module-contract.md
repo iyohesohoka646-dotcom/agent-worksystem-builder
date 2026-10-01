@@ -1,6 +1,6 @@
 # Module handoff and shared runtime
 
-The five Skills are distributed together. The coordinator selects only the module needed now; modules can also be invoked directly. Their shared resources live in the sibling `building-agent-worksystems/` directory. Resolve paths from the loaded Skill file, not from the target project's current directory. Install or copy the complete Skill suite; an individual module folder does not contain the shared runtime.
+The coordinator and five focused Skills are distributed together: clarify, explore, design, execute and verify. Load only what the next decision needs; modules can be invoked directly. Shared resources live in the sibling `building-agent-worksystems/` directory. Resolve paths from the loaded Skill, not the target cwd. Install/copy the complete suite; leaf folders do not contain the shared runtime.
 
 ## Handoff
 
@@ -14,10 +14,11 @@ Pass a short context record containing the following observed values. Leave unav
 | `constraints`, `authority` and `budget` | User's limits, already authorized actions and remaining call/time limits |
 | `runtime_root` and `python` | Resolved shared Skill directory and verified compatible interpreter, if execution is needed |
 | `cycle_id`, `change_id`, `run_id`, `review_ids` | Actual records used by the current operation |
+| `architecture_id`, `profile_id`, `exploration_ids` | Actual versioned construction contracts; missing historical fields stay null |
 | `artifacts` and `evidence` | Actual paths, hashes, checks, limitations and unresolved effects |
 | `next_action` | One bounded operation or a concrete missing input |
 
-Return the updated record and the module's task output. This is a derived handoff, not a second ledger or permission grant. SQLite remains authoritative for initialized AWB projects. Read current state on resume; preserve answered questions and earlier decisions. Explicit user instructions take precedence over Skill procedures.
+Return updated context and actual output. This handoff is not a ledger or permission grant. AWB SQLite is authoritative for construction records; the target application owns separate business state and lifecycle, linked by identifiers/artifacts. Read current state on resume; preserve original goal, answers and decision reasons. Explicit user instructions take precedence.
 
 ## Runtime access
 

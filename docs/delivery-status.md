@@ -1,5 +1,21 @@
 # Delivery status
 
+## 0.2 candidate / 本轮候选
+
+0.2.0-alpha.1 plugin / 0.2.0a1 Python is currently unreleased. The broad original goal is restored: native-conversation construction, ordinary software architecture and optional intelligent participation. Coordinator plus five modules includes adaptive exploration. Original plan and alpha.4 tag/assets remain unchanged.
+
+Implemented: persistent contracts/grill/reopened decisions, review-bound resources, inherited provider/rules with scoped writes, local app-server sessions/approvals/events, exec results, registered verifiers and whole-goal coverage. Three standalone example paths exist; business state stays separate. Engineering tests and scripted fixtures are not model-effect evidence.
+
+Actual access: C:/codex, Codex 0.158.0, gpt-6-sol/max passed both modes on 2026-10-01. User-approved per-call override; global config unchanged. gpt-6.1-sol failed unsupported account/model 400. Separate receipts: reports/host-preflight-0.2*/. Preflight is not target acceptance.
+
+Six cases × four conditions × five repeats = 120 full-build attempts. Frozen runner and external graders are supplied; actual progress is saved separately, incomplete matrices are never marked complete. Actual human trial, semantic acceptance and official-directory review remain open. No new release or improvement claim until gates pass.
+
+Latest engineering run: 163 tests passed, including qualification, multi-component/multi-launch coverage and deterministic fault-probe regressions. Fresh wheel installation/import/new schemas/CLI passed. Native candidate installation in a credential-free isolated home, cached CLI and six enabled Skill discoveries passed. Actual matrix started in reports/system-matrix-0.2-qualified-input; early pure-program/existing-project artifacts passed and workbench attempts exhausted their budgets. Raw failures, observed cleanup overrun and ninth change-batch observation remain. A read-only qualification tool reports incomplete cells, binding/constraint gaps and unknown metrics; it never auto-approves release.
+
+用户拒绝将统计行数样例用于最终人工验收：该工作台只是双模式与恢复测试，尚无项目层或跨任务调度。默认行数任务已移除，试用页面及自有预览进程已关闭，业务数据保留。完整产品范围及多组件、多工作单元的构筑与验收方式见[系统级构筑](system-level-construction.md)。该反馈不记录为人工通过。冻结评分器的节点结果绑定缺口不临时改分；独立故障检查在第二次尝试的产物副本上通过了错误结果拒绝、输出绑定／明确拒绝、后端明确失败、无自动重试和原文件保持，模型调用为零。原超时尝试仍为失败，其他产物和系统级资格仍需核验，参见[资格审查](upgrade-review.md)。
+
+## Historical alpha.4 evidence
+
 Alpha version: `0.1.0-alpha.4` plugin / `0.1.0a4` Python package, checked on 2026-10-01. The Skill layer now comprises one coordinator and four focused modules sharing a handoff contract and runtime. Downloads and publication status are on the [GitHub prerelease page](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4). Official-directory submission and complete v0.1 task/compatibility qualification remain open.
 
 | Area | Observed evidence | State |

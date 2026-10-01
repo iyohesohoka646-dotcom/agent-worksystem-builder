@@ -20,7 +20,9 @@ def propose_next_action(goal, observed_state, uncertainties):
 def context_package(store):
     goal = store.goal()
     cycles = store.list("cycle")
-    return {"schema_version": 1, "goal": goal,
+    return {"schema_version": 1, "goal": goal, "original_goal": store.original_goal(),
+            "architectures": store.list("architecture"), "intelligence_profiles": store.list("profile"),
+            "explorations": store.list("exploration"),
             "decisions": [{"id": c["id"], "status": c["status"], "decision": c.get("decision"),
                            "evidence_refs": c.get("evidence_refs", [])} for c in cycles],
             "pending_reviews": [r for r in store.list("review") if r["status"] == "needs_human"],

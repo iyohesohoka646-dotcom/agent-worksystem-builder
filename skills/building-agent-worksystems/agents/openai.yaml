@@ -1,6 +1,6 @@
 interface:
   display_name: "Agent Worksystem Builder"
-  short_description: "Build, verify and resume local agent workflows"
-  default_prompt: "Use $building-agent-worksystems to build or resume my local workflow and verify its actual outputs."
+  short_description: "Build intelligent systems across software and AI layers"
+  default_prompt: "Use $building-agent-worksystems to grill my requirements, explore alternatives, implement my complete intelligent system and verify its actual behavior."
 policy:
   allow_implicit_invocation: true

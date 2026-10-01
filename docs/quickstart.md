@@ -1,5 +1,9 @@
 # Quick start / 快速上手
 
+For broad 0.2 construction and candidate installation, see [upgrade instructions](upgrade-0.2.md). Start with the whole application goal, ordinary architecture and optional intelligence; ongoing grill/exploration keeps the target intact. Below are the retained immutable alpha.4 installation and materials example, not new-version installation.
+
+本轮广义构筑与安装见[升级说明](upgrade-0.2.md)。说明完整目标、现有程序、权限和预算；总控持续 grill、探索并核验整体需求。下文保留已发布 alpha.4 的安装及材料示例。
+
 [English overview](../README.md) · [中文首页](../README.zh-CN.md) · [Downloads / 下载](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)
 
 Choose the plugin route to work in Codex, or the CLI walkthrough to inspect a repeatable local example without calling a model. The walkthrough uses synthetic documents and a simulated reviewer; it is not a benchmark or a real human-acceptance test.

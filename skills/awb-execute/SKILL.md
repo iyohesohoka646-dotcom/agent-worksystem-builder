@@ -1,13 +1,17 @@
 ---
 name: awb-execute
-description: Use when an agent work system has an authorized implementation, goal update or bounded candidate run to carry out. Planning-only requests and independent acceptance use other modules.
+description: Use when an intelligent system has an authorized implementation, goal update, target configuration or bounded candidate run to carry out.
 metadata:
-  version: 0.1.0a4
+  version: 0.2.0a1
 ---
 
 # AWB Controlled Execution
 
 Apply the authorized change and preserve its actual execution evidence; leave acceptance to independent verification.
+
+Implement the target application's actual components and independent entrypoints through native Codex engineering tools and suitable libraries. The AWB CLI records controlled candidates and evidence; its material processor and optional graph are examples/reusable facilities, not the only implementation routes. Use ArchitecturePlan and IntelligenceProfile IDs on cycles when available. Unresolved consequential contract reviews block execution; no fabricated approvals or missing historical contracts.
+
+For target interactive intelligence, use the local stdio app-server client, persist thread/turn IDs in the target's business state, forward events and explicit user requests, and support resume/interrupt. For noninteractive intelligence, use `codex exec` with actual working config/rules, bounded calls, JSONL events and separately validated structured output. Workspace-write is explicit and scoped to the target directory; noninteractive execution denies unresolved approval prompts. Read [intelligence-modes.md](../building-agent-worksystems/references/intelligence-modes.md) when implementing these modes.
 
 Read the shared [handoff contract](../building-agent-worksystems/references/module-contract.md), then [lifecycle.md](../building-agent-worksystems/references/lifecycle.md) for CLI operations. Read [recovery-and-security.md](../building-agent-worksystems/references/recovery-and-security.md) before rollback, replay or side-effectful execution. Input is the goal revision, implementation contracts, change scope, current identifiers and remaining budget.
 

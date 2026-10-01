@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntelligenceProfile v1", "type": "object",
+  "required": ["schema_version", "goal_revision", "mode", "model", "resources", "context", "permissions", "budget", "decisions"],
+  "properties": {
+    "schema_version": {"const": 1}, "goal_revision": {"type": "integer", "minimum": 1},
+    "mode": {"enum": ["none", "interactive", "noninteractive", "mixed"]}, "model": {"type": ["string", "null"]},
+    "reasoning_effort": {"type": "string"}, "codex_home": {"type": "string"}, "executable": {"type": "string"},
+    "resources": {"type": "array", "items": {"type": "object", "required": ["id", "kind", "source", "version", "license", "compatibility", "operation"], "properties": {"id": {"type": "string"}, "kind": {"enum": ["skill", "plugin", "mcp", "tool", "model", "context"]}, "source": {"type": "string"}, "version": {"type": ["string", "null"]}, "license": {"type": ["string", "null"]}, "compatibility": {"enum": ["unknown", "verified", "incompatible"]}, "operation": {"enum": ["use", "install", "new_credentials", "paid", "new_destination"]}, "configuration": {"type": "object"}}}},
+    "context": {"type": "object", "required": ["inherit_user_config", "inherit_rules"], "properties": {"inherit_user_config": {"type": "boolean"}, "inherit_rules": {"type": "boolean"}}},
+    "permissions": {"type": "object", "required": ["sandbox", "approval_policy"], "properties": {"sandbox": {"enum": ["read-only", "workspace-write"]}, "approval_policy": {"enum": ["untrusted", "on-request", "never"]}, "workspace_write_authorized": {"type": "boolean"}}},
+    "budget": {"type": "object", "required": ["max_calls", "max_seconds"], "properties": {"max_calls": {"type": "integer", "minimum": 0}, "max_seconds": {"type": "number", "exclusiveMinimum": 0}}},
+    "decisions": {"type": "array", "items": {"type": "object", "required": ["id", "question", "consequential"], "properties": {"id": {"type": "string"}, "question": {"type": "string"}, "consequential": {"type": "boolean"}}}}
+  }
+}

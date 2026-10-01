@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExplorationRecord v1", "type": "object",
+  "required": ["schema_version", "goal_revision", "question", "strategy", "candidates", "evidence", "decision"],
+  "properties": {
+    "schema_version": {"const": 1}, "goal_revision": {"type": "integer", "minimum": 1},
+    "question": {"type": "object", "required": ["id", "text", "impact", "uncertainty", "discoverable", "consequential"], "properties": {"id": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}, "impact": {"type": "number", "minimum": 0}, "uncertainty": {"type": "number", "minimum": 0, "maximum": 1}, "discoverable": {"type": "boolean"}, "consequential": {"type": "boolean"}, "reversible": {"type": "boolean"}}},
+    "strategy": {"type": "object", "required": ["method", "reason"], "properties": {"method": {"enum": ["environment", "documentation", "prototype", "comparison", "mixed"]}, "reason": {"type": "string", "minLength": 1}}},
+    "candidates": {"type": "array", "items": {"type": "object", "required": ["id", "description", "status", "evidence_refs"], "properties": {"id": {"type": "string"}, "description": {"type": "string"}, "status": {"enum": ["open", "selected", "rejected", "unknown"]}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "rejection_reason": {"type": "string"}}}},
+    "evidence": {"type": "array", "items": {"type": "object", "required": ["source", "observation"], "properties": {"source": {"type": "string"}, "observation": {"type": "string"}, "sha256": {"type": ["string", "null"]}}}},
+    "decision": {"type": ["object", "null"], "required": ["choice", "reason"], "properties": {"choice": {"type": "string"}, "reason": {"type": "string", "minLength": 1}, "reopen_when": {"type": "array", "items": {"type": "string"}}}},
+    "answer": {"type": "object"}
+  }
+}

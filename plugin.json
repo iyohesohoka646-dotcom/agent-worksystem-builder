@@ -1,26 +1,26 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agent-worksystem-builder",
-  "version": "0.1.0-alpha.4",
-  "description": "Build and improve resumable agent work systems with persistent goals, controlled changes, independent verification and human review.",
+  "version": "0.2.0-alpha.1",
+  "description": "Build complete intelligent systems through continuous requirements grill, adaptive exploration and evidence-backed software and intelligence orchestration.",
   "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
   "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
   "repository": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
-  "keywords": ["agents", "workflow", "verification", "recovery", "codex"],
+  "keywords": ["intelligent-systems", "architecture", "agents", "skills", "mcp", "verification", "codex"],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Agent Worksystem Builder",
-        "shortDescription": "Build resumable work systems",
-        "longDescription": "Turn a recurring task into a working local system. A coordinator composes four focused Skills for requirements, architecture and integration, controlled execution, and verification with recovery. They share one Python CLI, dependency doctor, project state and optional local MCP for the materials example. Requires Python 3.11+ and the packaged dependencies; MCP is opt-in. Live model and user-task acceptance remain pending.",
+        "shortDescription": "Build complete intelligent systems",
+        "longDescription": "A native Codex coordinator composes five focused Skills for continuous requirements grill, adaptive exploration, architecture and intelligence configuration, implementation, and independent verification. Targets choose ordinary software architecture and optional interactive/noninteractive intelligence without mandatory AWB DAG or business storage. Versioned contracts, recoverable construction state, general verifiers and three standalone examples are implemented. Python 3.11+; MCP is optional. This 0.2 candidate is not release-qualified: gpt-6-sol/max actual access passed in both modes; 120 matched builds and human acceptance remain gates.",
         "developerName": "iyohesohoka646-dotcom",
         "category": "Productivity",
-        "capabilities": ["Build local workflows", "Verify artifacts", "Resume saved runs", "Request human review"],
+        "capabilities": ["Design software and intelligence layers", "Explore alternatives", "Implement and verify systems", "Resume construction decisions"],
         "websiteURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
         "supportURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues",
         "privacyPolicyURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/PRIVACY.md",
         "termsOfServiceURL": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/TERMS.md",
-        "defaultPrompt": ["Build a local workflow for processing materials with human review.", "Resume my saved work system and check the next task."],
+        "defaultPrompt": ["Grill my requirements, explore options and build the complete intelligent system I need.", "设计整体软件架构和智能层，持续探索、实现、核验并保留决策。"],
         "brandColor": "#225C60",
         "brandColorDark": "#78D7CC",
         "composerIcon": "./assets/icon.svg",
@@ -28,9 +28,9 @@
       },
       "onboardingSkill": "./skills/building-agent-worksystems/SKILL.md",
       "publication": {
-        "release_notes": "Splits workflow guidance into one coordinator and four independently discoverable Skills, with shared handoff context and one runtime. Portable distribution now includes the complete Skill suite. CLI/MCP contracts are unchanged; the default plugin remains skills-only. Web import and real-model improvement remain unqualified.",
+        "release_notes": "Unreleased 0.2 candidate restores broad intelligent-system construction, adds exploration and versioned architecture/intelligence contracts, dual-mode Codex adapters, general verification and whole-goal coverage. Existing CLI/MCP remain compatible; alpha.4 assets unchanged. Qualification and official approval are separate pending gates.",
         "translations": {
-          "zh-CN": {"subtitle": "构筑可恢复的智能体工作系统", "description": "将重复任务构筑为可运行的本地系统，保存目标与决策、执行受控变更、核验任务证据、请求人工复核并恢复运行。需要 Python 3.11 及随包声明的依赖，当前为 alpha 版本。"}
+          "zh-CN": {"subtitle": "自动编排与实现完整智能系统", "description": "通过持续需求 grill、自适应探索与评估—创造—验证—决策循环，构筑用户需要的完整系统；整体软件架构与可选交互、非交互智能层分别设计。新增探索模块、版本化契约和通用核验。0.2 为未发布候选，gpt-6-sol/max 双模式真实访问已通过；120 次对照构筑和人工试用仍待验收。"}
         }
       }
     }

@@ -1,0 +1,6 @@
+interface:
+  display_name: "AWB Explore / 自适应探索"
+  short_description: "Explore environments, resources and architecture alternatives"
+  default_prompt: "Use $awb-explore to investigate the most important uncertainty in my intelligent-system build and record evidence and next decisions."
+policy:
+  allow_implicit_invocation: true

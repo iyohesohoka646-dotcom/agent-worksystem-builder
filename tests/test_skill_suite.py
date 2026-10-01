@@ -13,7 +13,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = {
     "building-agent-worksystems", "awb-clarify", "awb-design",
-    "awb-execute", "awb-verify",
+    "awb-execute", "awb-verify", "awb-explore",
 }
 
 

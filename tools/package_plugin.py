@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "skills/building-agent-worksystems/scripts"))
 from awb_core.contracts import file_digest, read_json, write_json
 
-SUITE_NAMES = ("building-agent-worksystems", "awb-clarify", "awb-design", "awb-execute", "awb-verify")
+SUITE_NAMES = ("building-agent-worksystems", "awb-clarify", "awb-explore", "awb-design", "awb-execute", "awb-verify")
 
 
 def validate_skill_suite():
@@ -25,10 +25,13 @@ def validate_skill_suite():
 def package(output=None):
     validate_skill_suite()
     manifest = read_json(ROOT / "plugin.json")
-    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "README.zh-CN.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py", "tools/evaluate.py", "evals/README.md", "evals/scenarios.json")]
+    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "README.zh-CN.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py", "tools/evaluate.py", "tools/host_preflight.py", "tools/evaluate_systems.py", "evals/README.md", "evals/scenarios.json", "evals/systems.json", "evals/system_checks.py")]
+    paths += [ROOT / "evals/system_gateway.py"]
+    paths += [ROOT / "tools/qualify_systems.py", ROOT / "tools/workbench_fault_probe.py"]
     paths += [p for folder in (ROOT / "skills", ROOT / "assets", ROOT / "examples") for p in folder.rglob("*")
               if distributable(p)]
-    paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md", "plugin-architecture.md", "quickstart.md", "share.md", "release-alpha4.md")]
+    paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md", "plugin-architecture.md", "quickstart.md", "share.md", "release-alpha4.md", "upgrade-0.2.md", "intelligent-system-upgrade-plan.md")]
+    paths += [ROOT / "docs/system-level-construction.md", ROOT / "docs/upgrade-review.md"]
     output = Path(output) if output else ROOT / "dist" / f"agent-worksystem-builder-{manifest['version']}-plugin.zip"
     output.parent.mkdir(parents=True, exist_ok=True)
     files = {}

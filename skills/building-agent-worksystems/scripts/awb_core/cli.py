@@ -14,6 +14,9 @@ from .materials import run_materials, resume_materials
 from .scheduler import run_graph, plan_from_selection
 from .state import Store, identifier
 from .verification import verify_candidate, verify_materials
+from .exploration import next_action, answer_question, reopen_question
+from .delivery import coverage, check_delivery
+from .intelligence import compile_profile, discover_resources
 
 
 def parser():
@@ -21,7 +24,7 @@ def parser():
     root.add_argument("--version", action="version", version=__version__)
     commands = root.add_subparsers(dest="command", required=True)
     parsers = {}
-    for name in ("init", "goal", "probe", "status", "next", "cycle", "run", "review", "resume", "verify", "export", "cancel", "plan"):
+    for name in ("init", "goal", "probe", "status", "next", "cycle", "run", "review", "resume", "verify", "export", "cancel", "plan", "explore", "architecture", "profile", "delivery"):
         p = commands.add_parser(name)
         p.add_argument("--project", type=Path, default=Path.cwd())
         p.add_argument("--json", action="store_true", help="Output is always machine-readable JSON")
@@ -31,7 +34,17 @@ def parser():
     parsers["goal"].add_argument("--expected-revision", type=int)
     parsers["probe"].add_argument("--config", type=Path, required=True)
     parsers["probe"].add_argument("--live", action="store_true")
-    parsers["next"].add_argument("--uncertainties", type=Path, required=True)
+    parsers["next"].add_argument("--uncertainties", type=Path)
+    for name in ("explore", "architecture", "profile"):
+        parsers[name].add_argument("--file", type=Path)
+        parsers[name].add_argument("--id")
+        parsers[name].add_argument("--expected-revision", type=int)
+    parsers["explore"].add_argument("--action", choices=["record", "next", "answer", "reopen"], default="record")
+    parsers["explore"].add_argument("--source", choices=["user", "environment", "experiment"])
+    parsers["explore"].add_argument("--reason")
+    parsers["profile"].add_argument("--compile", action="store_true")
+    parsers["profile"].add_argument("--discover", type=Path, help="Metadata-only inventory in this Codex home")
+    parsers["delivery"].add_argument("--file", type=Path)
     p = parsers["cycle"]
     p.add_argument("--action", choices=["start", "transition", "decide", "prepare", "apply", "rollback"], required=True)
     p.add_argument("--id")
@@ -52,11 +65,13 @@ def parser():
     p.add_argument("--id")
     p.add_argument("--answer", type=Path)
     p.add_argument("--actor")
-    for name in ("resume", "verify", "cancel"):
+    for name in ("resume", "cancel"):
         parsers[name].add_argument("--id", required=True)
+    parsers["verify"].add_argument("--id")
     parsers["verify"].add_argument("--reference", type=Path)
     parsers["verify"].add_argument("--cycle-id")
     parsers["verify"].add_argument("--change-id")
+    parsers["verify"].add_argument("--acceptance", type=Path, help="Registered verifier and frozen acceptance configuration")
     parsers["export"].add_argument("--output", required=True)
     parsers["plan"].add_argument("--selection", type=Path, required=True)
     parsers["plan"].add_argument("--catalog", type=Path, required=True)
@@ -77,6 +92,32 @@ def dispatch(args):
     if args.command == "plan":
         return plan_from_selection(read_json(args.selection), read_json(args.catalog))
     store = Store(args.project)
+    if args.command == "delivery":
+        return check_delivery(store, read_json(args.file)) if args.file else coverage(store)
+    if args.command in {"explore", "architecture", "profile"}:
+        kind = "exploration" if args.command == "explore" else args.command
+        if args.command == "profile":
+            if args.discover:
+                return discover_resources(store.project, args.discover)
+            if args.compile:
+                return compile_profile(store.require_contract(required(args.id, "--id"), "profile"))
+        if args.command == "explore":
+            if args.action == "next":
+                return next_action(store)
+            if args.action == "answer":
+                return answer_question(store, required(args.id, "--id"), read_json(required(args.file, "--file")), required(args.source, "--source"))
+            if args.action == "reopen":
+                return reopen_question(store, required(args.id, "--id"), required(args.reason, "--reason"))
+        if args.file:
+            record = store.record_contract(kind, read_json(args.file), args.id, args.expected_revision)
+            write_handoff(store)
+            return record
+        if args.id:
+            record = store.get(args.id)
+            if record["kind"] != kind:
+                raise AWBError("schema", "Record has a different contract kind")
+            return record
+        return store.list(kind)
     if args.command == "goal":
         return store.update_goal(read_json(args.file), required(args.expected_revision, "--expected-revision")) if args.file else store.goal()
     if args.command == "probe":
@@ -90,7 +131,7 @@ def dispatch(args):
                 "pending_reviews": [r for r in store.list("review") if r["status"] == "needs_human"],
                 "stagnation": stagnation(store.list("cycle"))}
     if args.command == "next":
-        return propose_next_action(store.goal(), {"stagnation": stagnation(store.list("cycle"))}, read_json(args.uncertainties))
+        return next_action(store, read_json(args.uncertainties) if args.uncertainties else [])
     if args.command == "cycle":
         return cycle_command(store, args)
     if args.command == "run":
@@ -108,11 +149,13 @@ def dispatch(args):
             return run_graph(store, run["graph"], run["task"], run["max_calls"], run["remaining_seconds"], run["concurrency"], run["id"])
         return resume_materials(store, args.id)
     if args.command == "verify":
+        if args.acceptance:
+            return verify_candidate({"store": store, "cycle_id": required(args.cycle_id, "--cycle-id"), "change_id": args.change_id}, read_json(args.acceptance))
         reference = read_json(args.reference) if args.reference else None
         if args.cycle_id:
             return verify_candidate({"store": store, "cycle_id": args.cycle_id, "change_id": args.change_id},
                                     {"kind": "materials", "run_id": args.id, "reference": reference})
-        return verify_materials(store, args.id, reference)
+        return verify_materials(store, required(args.id, "--id"), reference)
     if args.command == "export":
         return export_project(store, args.output)
     if args.command == "cancel":

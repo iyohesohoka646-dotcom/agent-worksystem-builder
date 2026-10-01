@@ -90,7 +90,7 @@ def validate_schema(schema, value):
 
 def validate_record(kind, payload):
     path = Path(__file__).with_name("schemas") / f"{kind}.json"
-    if not path.is_file() or kind not in {"goal", "node", "result"}:
+    if not path.is_file() or kind not in {"goal", "node", "result", "architecture", "profile", "exploration"}:
         raise AWBError("schema", f"Unknown schema kind: {kind}")
     validate_schema(read_json(path), payload)
     if kind == "goal":
@@ -100,4 +100,20 @@ def validate_record(kind, payload):
         for r in payload["requirements"]:
             if r["source"] == "inference" and r["status"] == "confirmed":
                 raise AWBError("schema", "An inference cannot be confirmed without a new source")
+    collections = {"architecture": ("components", "interfaces", "entrypoints", "acceptance", "decisions"),
+                   "profile": ("resources", "decisions"), "exploration": ("candidates",)}
+    for field in collections.get(kind, ()):
+        ids = [item["id"] for item in payload.get(field, [])]
+        if len(ids) != len(set(ids)):
+            raise AWBError("schema", f"{field} IDs must be unique")
+    if kind == "architecture":
+        components = {item["id"] for item in payload["components"]}
+        refs = [item["component_id"] for item in payload["entrypoints"]]
+        refs += [item[key] for item in payload["interfaces"] for key in ("from", "to")]
+        refs += [item[key] for item in payload["dependencies"] for key in ("from", "to")]
+        if set(refs) - components:
+            raise AWBError("schema", "Unknown architecture component reference")
+    if kind == "exploration" and isinstance(payload.get("decision"), dict):
+        if payload["decision"]["choice"] not in {c["id"] for c in payload["candidates"]}:
+            raise AWBError("schema", "Exploration decision must reference an observed candidate")
     return json.loads(canonical(payload))

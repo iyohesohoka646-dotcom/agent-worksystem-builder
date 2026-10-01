@@ -79,6 +79,10 @@ def _reconcile(store, change_id, reverse):
         raise AWBError("change", "Accepted changes require a new compensating candidate")
     if not reverse and record.get("baseline_spec_revision", 0) != store.accepted_spec()["revision"]:
         raise AWBError("revision", "Candidate baseline is stale")
+    if not reverse:
+        for cycle in store.list("cycle"):
+            if cycle.get("change_id") == change_id:
+                store.require_cycle_contracts(cycle)
     if record["goal_revision"] != store.goal()["revision"] and not reverse:
         raise AWBError("change", "Goal changed after this change was prepared")
     if record["status"] == "rolled_back" and not reverse:

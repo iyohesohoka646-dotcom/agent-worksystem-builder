@@ -1,6 +1,6 @@
 interface:
-  display_name: "AWB Verification"
-  short_description: "Verify artifacts, human review and recovery"
+  display_name: "AWB Verify / 核验"
+  short_description: "Verify whole-goal delivery / 核验产物与整体目标"
   default_prompt: "Use $awb-verify to independently check my saved results and identify the next safe action."
 policy:
   allow_implicit_invocation: true

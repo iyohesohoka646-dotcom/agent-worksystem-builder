@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "description": "Three task families, development and held-out cases. Scripted users are simulated. Runtime interfaces are controlled fixture boundaries, not product architecture limits.",
+  "conditions": [
+    "baseline",
+    "generic",
+    "previous",
+    "builder"
+  ],
+  "repeats": 5,
+  "limits": {
+    "host_turns": 30,
+    "construction_cycles": 8,
+    "seconds": 900
+  },
+  "cases": [
+    {
+      "id": "pure-development",
+      "family": "pure",
+      "split": "development",
+      "prompt": "Build a standalone deterministic CSV summary tool. Deliver app.py usable as: python app.py --input SOURCE --output DEST. Input has columns name,value; sum integer values by name, write a JSON object mapping name to sum. Preserve source bytes. No AI calls, agents, web services or dependencies. Provide launch, recovery and extension documentation. Inspect inputs before asking questions.",
+      "files": {
+        "input.csv": "name,value\nalpha,2\nbeta,4\nalpha,3\n"
+      },
+      "unchanged": [
+        "input.csv"
+      ],
+      "expected": {
+        "alpha": 5,
+        "beta": 4
+      },
+      "user_script": [
+        {
+          "match": [
+            "scope",
+            "goal",
+            "目标",
+            "需求"
+          ],
+          "answer": "Build the whole requested independent tool. Do not narrow it to a plan or one example."
+        },
+        {
+          "match": [
+            "input",
+            "输入",
+            "preserve",
+            "保留"
+          ],
+          "answer": "Preserve original input bytes."
+        }
+      ],
+      "validator": {
+        "family": "pure"
+      }
+    },
+    {
+      "id": "existing-development",
+      "family": "existing",
+      "split": "development",
+      "prompt": "Improve the supplied existing project, preserving parser.py bytes and its parse(text)->{count,items} public API. Add optional intelligent annotations via enhance.py --input SOURCE --output DEST --profile PROFILE. --no-intelligence must work without an AI backend. Output count/items remain unchanged and optional annotation is a nonempty string. The provided runtime profile contains a loopback gateway URL and model; invoke its POST /noninteractive with {prompt:string,cwd:absolute workspace path}; response is {text:string}. This trusted gateway runs codex exec on the frozen host. Config replacement and backend failure must remain explicit, preserve the existing project, give independent launch/recovery/extensions documentation. Do not install services or dependencies.",
+      "files": {
+        "parser.py": "def parse(text):\n    items = [line.strip() for line in text.splitlines() if line.strip()]\n    return {'count': len(items), 'items': items}\n",
+        "input.txt": "keep old API\nnew annotation\n"
+      },
+      "unchanged": [
+        "parser.py",
+        "input.txt"
+      ],
+      "expected": {
+        "count": 2,
+        "items": [
+          "keep old API",
+          "new annotation"
+        ]
+      },
+      "user_script": [
+        {
+          "match": [
+            "model",
+            "模型",
+            "provider",
+            "backend",
+            "后端"
+          ],
+          "answer": "Use the runtime-supplied gateway profile; preserve ordinary parsing and no-intelligence fallback. No new paid services."
+        },
+        {
+          "match": [
+            "input",
+            "输入",
+            "api",
+            "接口"
+          ],
+          "answer": "Preserve source bytes and parser API exactly."
+        }
+      ],
+      "validator": {
+        "family": "existing"
+      }
+    },
+    {
+      "id": "workbench-development",
+      "family": "workbench",
+      "split": "development",
+      "prompt": "Build a standalone local task workbench with a usable browser UI, HTTP service and persistent business data, independent of the Builder session. Launch: python app.py --data DIR --port PORT --profile PROFILE. For the frozen external test provide GET / (usable HTML), GET /api/tasks (JSON list), POST /api/tasks {title,input,expected} returning {id,...}, GET /api/tasks/ID, POST /api/tasks/ID/approve, POST /api/tasks/ID/discuss {message} returning {text}, POST /api/tasks/ID/execute returning {output,verified}. A task input and expected are JSON objects; a normal Python comparison independently verifies actual node output against expected. Runtime PROFILE has a loopback gateway URL and model; POST gateway /interactive or /noninteractive with {prompt:string,cwd:absolute task workspace}; gateway returns {text:string}. Gateway implements local Codex app-server discussion and codex exec execution on the frozen host. Task IDs/data survive a process restart. Support explicit backend error without automatic retry. Provide launch/configuration/architecture/recovery/extension documentation. No new dependencies, paid services or credentials.",
+      "files": {
+        "requirements.txt": "# Standard-library target; existing authenticated Codex via runtime gateway.\n"
+      },
+      "unchanged": [
+        "requirements.txt"
+      ],
+      "task": {
+        "title": "sum",
+        "input": {
+          "values": [
+            2,
+            3
+          ]
+        },
+        "expected": {
+          "sum": 5
+        }
+      },
+      "user_script": [
+        {
+          "match": [
+            "architecture",
+            "架构",
+            "stack",
+            "框架"
+          ],
+          "answer": "Choose an appropriate small modern architecture. Business state is separate from Builder state."
+        },
+        {
+          "match": [
+            "approval",
+            "审批",
+            "permission",
+            "权限"
+          ],
+          "answer": "Execution needs explicit task approval; ordinary implementation inside this workspace is allowed."
+        },
+        {
+          "match": [
+            "model",
+            "模型",
+            "backend",
+            "后端",
+            "gateway"
+          ],
+          "answer": "Use the supplied gateway profile for both modes; no new services, credentials or installation."
+        }
+      ],
+      "validator": {
+        "family": "workbench"
+      }
+    },
+    {
+      "id": "pure-holdout",
+      "family": "pure",
+      "split": "holdout",
+      "prompt": "Build a standalone deterministic CSV summary tool. Deliver app.py usable as: python app.py --input SOURCE --output DEST. Input has columns name,value; sum integer values by name, write a JSON object mapping name to sum. Preserve source bytes. No AI calls, agents, web services or dependencies. Provide launch, recovery and extension documentation. Inspect inputs before asking questions.",
+      "files": {
+        "input.csv": "name,value\n负值,-5\nzero,0\n负值,8\n"
+      },
+      "unchanged": [
+        "input.csv"
+      ],
+      "expected": {
+        "负值": 3,
+        "zero": 0
+      },
+      "user_script": [
+        {
+          "match": [
+            "scope",
+            "goal",
+            "目标",
+            "需求"
+          ],
+          "answer": "Build the whole requested independent tool. Do not narrow it to a plan or one example."
+        },
+        {
+          "match": [
+            "input",
+            "输入",
+            "preserve",
+            "保留"
+          ],
+          "answer": "Preserve original input bytes."
+        }
+      ],
+      "validator": {
+        "family": "pure"
+      }
+    },
+    {
+      "id": "existing-holdout",
+      "family": "existing",
+      "split": "holdout",
+      "prompt": "Improve the supplied existing project, preserving parser.py bytes and its parse(text)->{count,items} public API. Add optional intelligent annotations via enhance.py --input SOURCE --output DEST --profile PROFILE. --no-intelligence must work without an AI backend. Output count/items remain unchanged and optional annotation is a nonempty string. The provided runtime profile contains a loopback gateway URL and model; invoke its POST /noninteractive with {prompt:string,cwd:absolute workspace path}; response is {text:string}. This trusted gateway runs codex exec on the frozen host. Config replacement and backend failure must remain explicit, preserve the existing project, give independent launch/recovery/extensions documentation. Do not install services or dependencies.",
+      "files": {
+        "parser.py": "def parse(text):\n    items = [line.strip() for line in text.splitlines() if line.strip()]\n    return {'count': len(items), 'items': items}\n",
+        "input.txt": "保留接口\n\n第二条\n"
+      },
+      "unchanged": [
+        "parser.py",
+        "input.txt"
+      ],
+      "expected": {
+        "count": 2,
+        "items": [
+          "保留接口",
+          "第二条"
+        ]
+      },
+      "user_script": [
+        {
+          "match": [
+            "model",
+            "模型",
+            "provider",
+            "backend",
+            "后端"
+          ],
+          "answer": "Use the runtime-supplied gateway profile; preserve ordinary parsing and no-intelligence fallback. No new paid services."
+        },
+        {
+          "match": [
+            "input",
+            "输入",
+            "api",
+            "接口"
+          ],
+          "answer": "Preserve source bytes and parser API exactly."
+        }
+      ],
+      "validator": {
+        "family": "existing"
+      }
+    },
+    {
+      "id": "workbench-holdout",
+      "family": "workbench",
+      "split": "holdout",
+      "prompt": "Build a standalone local task workbench with a usable browser UI, HTTP service and persistent business data, independent of the Builder session. Launch: python app.py --data DIR --port PORT --profile PROFILE. For the frozen external test provide GET / (usable HTML), GET /api/tasks (JSON list), POST /api/tasks {title,input,expected} returning {id,...}, GET /api/tasks/ID, POST /api/tasks/ID/approve, POST /api/tasks/ID/discuss {message} returning {text}, POST /api/tasks/ID/execute returning {output,verified}. A task input and expected are JSON objects; a normal Python comparison independently verifies actual node output against expected. Runtime PROFILE has a loopback gateway URL and model; POST gateway /interactive or /noninteractive with {prompt:string,cwd:absolute task workspace}; gateway returns {text:string}. Gateway implements local Codex app-server discussion and codex exec execution on the frozen host. Task IDs/data survive a process restart. Support explicit backend error without automatic retry. Provide launch/configuration/architecture/recovery/extension documentation. No new dependencies, paid services or credentials.",
+      "files": {
+        "requirements.txt": "# Standard-library target; existing authenticated Codex via runtime gateway.\n"
+      },
+      "unchanged": [
+        "requirements.txt"
+      ],
+      "task": {
+        "title": "negative sum",
+        "input": {
+          "values": [
+            -7,
+            0,
+            9
+          ]
+        },
+        "expected": {
+          "sum": 2
+        }
+      },
+      "user_script": [
+        {
+          "match": [
+            "architecture",
+            "架构",
+            "stack",
+            "框架"
+          ],
+          "answer": "Choose an appropriate small modern architecture. Business state is separate from Builder state."
+        },
+        {
+          "match": [
+            "approval",
+            "审批",
+            "permission",
+            "权限"
+          ],
+          "answer": "Execution needs explicit task approval; ordinary implementation inside this workspace is allowed."
+        },
+        {
+          "match": [
+            "model",
+            "模型",
+            "backend",
+            "后端",
+            "gateway"
+          ],
+          "answer": "Use the supplied gateway profile for both modes; no new services, credentials or installation."
+        }
+      ],
+      "validator": {
+        "family": "workbench"
+      }
+    }
+  ]
+}

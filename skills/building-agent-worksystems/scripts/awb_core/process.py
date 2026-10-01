@@ -81,13 +81,13 @@ def resume_owned_process(process):
         api.CloseHandle(snapshot)
 
 
-def run_process(argv, cwd, input_path, stdout_path, stderr_path, timeout, cancel=None, max_bytes=4 * 1024 * 1024):
+def run_process(argv, cwd, input_path, stdout_path, stderr_path, timeout, cancel=None, max_bytes=4 * 1024 * 1024, env=None):
     process, job = None, None
     reason = None
     started = time.monotonic()
     try:
         with input_path.open("rb") as stdin, stdout_path.open("wb") as stdout, stderr_path.open("wb") as stderr:
-            process = subprocess.Popen(argv, cwd=cwd, stdin=stdin, stdout=stdout, stderr=stderr,
+            process = subprocess.Popen(argv, cwd=cwd, env=env, stdin=stdin, stdout=stdout, stderr=stderr,
                                        shell=False, creationflags=(subprocess.CREATE_NEW_PROCESS_GROUP | 4) if os.name == "nt" else 0,
                                        start_new_session=os.name != "nt")
             if os.name == "nt":

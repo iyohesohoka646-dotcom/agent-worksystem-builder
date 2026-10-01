@@ -31,6 +31,13 @@ TRANSITIONS = {
     "accepted": set(), "rolled_back": set(), "cancelled": set(),
 }
 
+CONTRACT_KINDS = {"architecture", "profile", "exploration"}
+RECORD_METADATA = {"id", "kind", "revision", "created_at", "updated_at", "status", "review_ids", "contract_digest", "reopen_reason"}
+
+
+def contract_payload(record):
+    return {k: v for k, v in record.items() if k not in RECORD_METADATA}
+
 
 class Store:
     def __init__(self, project):
@@ -130,6 +137,16 @@ class Store:
             write_json(mirror, goal)
         return goal
 
+    def original_goal(self):
+        """Oldest committed request; old projects keep only their actual available history."""
+        with self.connection() as db:
+            history = self.meta(db, "goal_history") or {str(self.meta(db, "goal_revision")): self.meta(db, "goal_digest")}
+        number = min(int(n) for n in history)
+        original = read_json(inside(self.project, self.root / "goals" / f"{number:06}.json"))
+        if digest(original) != history[str(number)]:
+            raise AWBError("drift", "Original goal history has drifted")
+        return original
+
     @mutation
     def update_goal(self, goal, expected_revision):
         goal = validate_record("goal", goal)
@@ -148,6 +165,11 @@ class Store:
             history = self.meta(db, "goal_history") or {str(previous["revision"]): digest(previous)}
             history[str(goal["revision"])] = digest(goal)
             db.execute("INSERT OR REPLACE INTO meta VALUES ('goal_history', ?)", (json.dumps(history),))
+            for row in db.execute("SELECT payload FROM records WHERE kind IN ('architecture','profile','exploration')").fetchall():
+                record = json.loads(row[0])
+                record.update(status="reopened" if record["kind"] == "exploration" else "stale",
+                              reopen_reason="Goal changed; reconsider affected decisions", revision=record["revision"] + 1)
+                self._put(db, record)
         write_json(self.root / "goal.json", goal)
         return goal
 
@@ -161,8 +183,10 @@ class Store:
         db.execute("INSERT INTO history VALUES (?, ?, ?)", (record["id"], record["revision"], data))
 
     def create(self, kind, payload):
-        if kind not in {"cycle", "run", "attempt", "review", "change", "probe"}:
+        if kind not in {"cycle", "run", "attempt", "review", "change", "probe"} | CONTRACT_KINDS:
             raise AWBError("schema", "Unknown state entity kind")
+        if kind in CONTRACT_KINDS:
+            payload = validate_record(kind, payload)
         record = dict(payload) | {"schema_version": 1, "id": identifier(kind), "kind": kind, "revision": 1, "created_at": now()}
         record.setdefault("status", "evaluating" if kind == "cycle" else "pending")
         if kind == "cycle":
@@ -172,6 +196,73 @@ class Store:
         with self.connection(write=True) as db:
             self._put(db, record, fresh=True)
         return record
+
+    @mutation
+    def record_contract(self, kind, payload, entity_id=None, expected_revision=None):
+        if kind not in CONTRACT_KINDS:
+            raise AWBError("schema", "Unknown construction contract")
+        payload = validate_record(kind, contract_payload(payload))
+        goal = self.goal()
+        if payload["goal_revision"] != goal["revision"]:
+            raise AWBError("revision", "Contract requires the current goal revision")
+        if kind == "architecture":
+            known = {r["id"] for r in goal["requirements"] if r["status"] != "replaced"}
+            if {r for a in payload["acceptance"] for r in a["requirement_ids"]} - known:
+                raise AWBError("schema", "Architecture acceptance references an unknown requirement")
+            if payload["intelligence_profile_id"]:
+                p = self.get(payload["intelligence_profile_id"])
+                if p["kind"] != "profile" or p["goal_revision"] != goal["revision"]:
+                    raise AWBError("revision", "Architecture profile is missing or stale")
+        questions = [d["question"] for d in payload.get("decisions", []) if d["consequential"]]
+        if kind == "profile":
+            questions += [f"Authorize {r['operation']} for {r['id']} from {r['source']}?"
+                          for r in payload["resources"] if r["operation"] != "use"]
+        status = ("decided" if payload.get("decision") else "open") if kind == "exploration" else "ready"
+        binding = digest(payload)
+        changes = payload | {"status": "needs_human" if questions else status, "contract_digest": binding, "review_ids": []}
+        if entity_id:
+            with self.connection(write=True) as db:
+                old = self.get(entity_id, db)
+                if old["kind"] != kind or old["revision"] != expected_revision:
+                    raise AWBError("revision", "Contract update requires its kind and current revision")
+                record = changes | {"id": old["id"], "kind": kind, "revision": old["revision"] + 1,
+                                    "created_at": old["created_at"], "updated_at": now()}
+                self._put(db, record)
+        else:
+            record = self.create(kind, changes)
+        if questions:
+            review = self.request_review(record["id"], binding, ["authorize_contract"], {"questions": questions})
+            record = self.update(record["id"], record["revision"], {"review_ids": [review["id"]]})
+        return record
+
+    def require_contract(self, entity_id, kind):
+        record = self.get(entity_id)
+        if record["kind"] != kind or record["goal_revision"] != self.goal()["revision"] or record["status"] in {"stale", "reopened"}:
+            raise AWBError("revision", "Construction contract is stale or has the wrong kind")
+        if digest(contract_payload(record)) != record.get("contract_digest"):
+            raise AWBError("drift", "Construction contract changed outside its revisioned interface")
+        if record["status"] == "needs_human" and not record.get("review_ids"):
+            raise AWBError("decision", "Consequential decision requires a saved user answer")
+        for review_id in record.get("review_ids", []):
+            answer = self.review_answer(review_id, record["contract_digest"], record["goal_revision"], ["authorize_contract"])
+            if not answer or answer.get("approved") is not True:
+                raise AWBError("decision", "Consequential decision is unresolved or declined")
+        if kind == "architecture" and record.get("intelligence_profile_id"):
+            self.require_contract(record["intelligence_profile_id"], "profile")
+        return record
+
+    def require_cycle_contracts(self, cycle):
+        records = {}
+        if cycle.get("architecture_id"):
+            records["architecture"] = self.require_contract(cycle["architecture_id"], "architecture")
+            selected = records["architecture"]["intelligence_profile_id"]
+            if cycle.get("profile_id") and cycle["profile_id"] != selected:
+                raise AWBError("configuration", "Cycle profile conflicts with the architecture intelligence profile")
+        else:
+            selected = cycle.get("profile_id")
+        if selected:
+            records["profile"] = self.require_contract(selected, "profile")
+        return records
 
     def get(self, entity_id, db=None):
         if db is None:
@@ -208,6 +299,9 @@ class Store:
     @mutation
     def record_transition(self, entity_id, expected_revision, transition, evidence_refs):
         self.goal()
+        if transition in {"implementing", "accepted"}:
+            candidate = self.get(entity_id)
+            self.require_cycle_contracts(candidate)
         with self.connection(write=True) as db:
             record = self.get(entity_id, db)
             if record["revision"] != expected_revision:
@@ -222,6 +316,9 @@ class Store:
                     report = self.check_evidence(ref, db)
                     if report["entity_id"] != entity_id or report["bindings"].get("goal_revision") != goal_revision or not report["passed"]:
                         raise AWBError("evidence", "Acceptance evidence failed or belongs to another cycle")
+                    for kind in ("architecture", "profile"):
+                        if record.get(kind + "_id") and report["bindings"].get(kind + "_id") != record[kind + "_id"]:
+                            raise AWBError("evidence", "Acceptance evidence belongs to another construction contract")
                 if record.get("change_id"):
                     change = self.get(record["change_id"], db)
                     current = self.accepted_spec(db)
@@ -282,6 +379,17 @@ class Store:
         if not row:
             raise AWBError("evidence", "Unknown evidence")
         report = json.loads(row[0])
+        from .verification import check_verifier_binding
+        check_verifier_binding(report["bindings"])
+        for dependency, expected in report["bindings"].get("execution_dependencies", {}).items():
+            if not Path(dependency).is_file() or file_digest(Path(dependency)) != expected:
+                raise AWBError("evidence", "Execution dependency drifted; revalidation required")
+        for kind in ("architecture", "profile"):
+            key = kind + "_id"
+            if report["bindings"].get(key):
+                contract = self.get(report["bindings"][key], db)
+                if contract.get("contract_digest") != report["bindings"][kind + "_digest"] or contract.get("status") in {"stale", "reopened"}:
+                    raise AWBError("evidence", f"Bound {kind} contract changed; revalidation required")
         for absent in report["bindings"].get("absent_paths", []):
             if inside(self.project, absent).exists():
                 raise AWBError("evidence", "An expected absent evidence target was recreated")

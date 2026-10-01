@@ -1,19 +1,21 @@
 ---
 name: awb-clarify
-description: Use when requirements, acceptance examples or consequential constraints are unclear for an agent work system, or its recorded goal needs revision. Ordinary factual questions do not need this module.
+description: Use when an intelligent system's requirements, acceptance examples or consequential decisions are unclear, including during construction or when its goal changes.
 metadata:
-  version: 0.1.0a4
+  version: 0.2.0a1
 ---
 
 # AWB Requirements
 
-Turn the user's actual task into an inspectable goal without choosing or executing an implementation.
+Grill the requirement or consequential decision that matters next, keeping the user's broad system goal intact. Clarification can recur after a prototype, failed check, goal change or new resource discovery.
 
 Read the shared [handoff contract](../building-agent-worksystems/references/module-contract.md). Input is the current request, target project, existing goal/answers if available and observed uncertainties. Read [adaptive-interview.md](../building-agent-worksystems/references/adaptive-interview.md) for consequential unknowns.
 
 Keep the user's wording, hard limits and acceptance examples distinct from assumptions and environment observations. Reuse answered questions. Ask only when the answer can change the next action, budget, privacy boundary or destination; reversible presentation choices need not delay work. Prefer a safe local probe when it answers the uncertainty more directly.
 
-Return the proposed goal or goal delta, confirmed constraints, acceptance examples and the one unresolved item that matters next. For batch materials, cover representative inputs, tolerated errors, human-review conditions and output. A request for a plan ends here: do not initialize state, install dependencies or run a workflow.
+Keep original wording, confirmed requirements, pending issues, answer sources and decision reasons. Reuse saved answers; reopen only affected decisions with the evidence and reason. Save stable question IDs in ExplorationRecord for initialized projects; inferred preferences are unconfirmed. Ask one high-impact question at a time when interaction permits, or a compact related group when needed. Facts discoverable from files/tools go to `awb-explore` before asking. Do not promote an example or successful local candidate into the entire product scope.
+
+Return the proposed goal or delta, actual answer, consequential decision, acceptance examples and next unresolved item. For batch materials, cover representative inputs and human-review conditions as one domain example. Planning ends here; an ongoing build returns to the coordinator without treating clarification as whole-goal completion.
 
 For an authorized goal change, pass the proposed file and observed revision to `awb-execute`; it uses revision-checked replacement and retains history. For architecture work, pass the confirmed brief to `awb-design`. Module handoff does not approve either operation.
 

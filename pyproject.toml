@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-worksystem-builder"
-version = "0.1.0a4"
-description = "Evidence-backed, resumable construction of agent work systems"
+version = "0.2.0a1"
+description = "Adaptive, evidence-backed construction of complete intelligent software systems"
 requires-python = ">=3.11"
 dependencies = ["jsonschema==4.26.0", "httpx==0.28.1"]
 

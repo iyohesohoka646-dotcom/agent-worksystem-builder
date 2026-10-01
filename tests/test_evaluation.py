@@ -40,7 +40,7 @@ def skill(tmp_path, name, text):
 
 
 @pytest.mark.parametrize("source", [ROOT / "skills"] + [ROOT / "skills" / name for name in (
-    "building-agent-worksystems", "awb-clarify", "awb-design", "awb-execute", "awb-verify",
+    "building-agent-worksystems", "awb-clarify", "awb-design", "awb-execute", "awb-verify", "awb-explore",
 )])
 def test_evaluator_freezes_complete_suite_with_resolvable_module_links(tmp_path, source):
     module = evaluator()
@@ -48,7 +48,7 @@ def test_evaluator_freezes_complete_suite_with_resolvable_module_links(tmp_path,
     snapshot = module.freeze_skill(source, destination)
     assert {name for name in snapshot["files"] if name.endswith("/SKILL.md")} == {
         "building-agent-worksystems/SKILL.md", "awb-clarify/SKILL.md", "awb-design/SKILL.md",
-        "awb-execute/SKILL.md", "awb-verify/SKILL.md",
+        "awb-execute/SKILL.md", "awb-verify/SKILL.md", "awb-explore/SKILL.md",
     }
     assert (destination / "awb-design/../building-agent-worksystems/references/architecture-selection.md").is_file()
     assert module.context_checks(tmp_path, {"builder": snapshot}) == {"preserved:context:builder": True}
@@ -71,7 +71,7 @@ def test_suite_evaluation_host_can_read_coordinator_sibling_modules(tmp_path):
     )
     host = fixture_host() | {"argv": [sys.executable, "-c", host_code]}
     scenario = fixture_scenario() | {"expected": {"result.json": {"modules": [
-        "awb-clarify", "awb-design", "awb-execute", "awb-verify", "building-agent-worksystems",
+        "awb-clarify", "awb-design", "awb-execute", "awb-explore", "awb-verify", "building-agent-worksystems",
     ]}}}
     attempt = module.run_attempt(scenario, "builder", host, tmp_path / "attempt", skill_path=frozen)
     assert attempt["execution_completed"]

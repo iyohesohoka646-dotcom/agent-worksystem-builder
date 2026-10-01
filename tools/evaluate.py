@@ -24,18 +24,23 @@ DEFAULT_SKILL = ROOT / "skills"
 SUITE_NAMES = ("building-agent-worksystems", "awb-clarify", "awb-design", "awb-execute", "awb-verify")
 
 
+def suite_names(folder):
+    # Frozen alpha.4 has five folders; the current suite requires the exploration module too.
+    return SUITE_NAMES + (("awb-explore",) if (folder / "building-agent-worksystems/references/construction-loop.md").is_file() else ())
+
+
 def skill_context(folder):
     folder = Path(folder).resolve()
-    if folder.name in SUITE_NAMES[1:]:
+    if folder.name in (*SUITE_NAMES[1:], "awb-explore"):
         coordinator = folder.parent / "building-agent-worksystems"
         if not (coordinator / "references/module-contract.md").is_file():
-            raise AWBError("eval", "Modular Skill suite is incomplete; supply all five folders")
+            raise AWBError("eval", "Modular Skill suite is incomplete; supply the complete versioned suite")
     else:
         coordinator = folder if folder.name == "building-agent-worksystems" else folder / "building-agent-worksystems"
     if (coordinator / "references/module-contract.md").is_file():
         suite = coordinator.parent
-        if not all((suite / name / "SKILL.md").is_file() for name in SUITE_NAMES):
-            raise AWBError("eval", "Modular Skill suite is incomplete; supply all five folders")
+        if not all((suite / name / "SKILL.md").is_file() for name in suite_names(suite)):
+            raise AWBError("eval", "Modular Skill suite is incomplete; supply the complete versioned suite")
         return suite
     return folder
 
@@ -52,7 +57,7 @@ def skill_files(folder):
     folder = skill_context(folder)
     skill_entrypoint(folder)
     files = {}
-    roots = [folder / name for name in SUITE_NAMES] if (folder / "building-agent-worksystems/references/module-contract.md").is_file() else [folder]
+    roots = [folder / name for name in suite_names(folder)] if (folder / "building-agent-worksystems/references/module-contract.md").is_file() else [folder]
     for path in sorted(path for root in roots for path in root.rglob("*")):
         relative = path.relative_to(folder)
         if any(part in {"__pycache__", ".git", ".venv", ".env"} or part.endswith(".egg-info") for part in relative.parts):

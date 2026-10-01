@@ -1,0 +1,7 @@
+{
+  "schema_version": 1, "goal_revision": 1, "mode": "mixed", "model": "gpt-6-sol",
+  "reasoning_effort": "max", "codex_home": "C:/codex", "resources": [],
+  "context": {"inherit_user_config": true, "inherit_rules": true},
+  "permissions": {"sandbox": "workspace-write", "workspace_write_authorized": true, "approval_policy": "on-request"},
+  "budget": {"max_calls": 1, "max_seconds": 120}, "decisions": []
+}

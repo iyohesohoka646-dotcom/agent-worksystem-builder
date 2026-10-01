@@ -1,6 +1,6 @@
 interface:
-  display_name: "AWB Architecture"
-  short_description: "Choose architecture and reuse existing tools"
-  default_prompt: "Use $awb-design to choose a minimal architecture and integration boundaries for my work system."
+  display_name: "AWB Architecture / 系统架构"
+  short_description: "Design software and intelligence / 整体架构与智能层"
+  default_prompt: "Use $awb-design to choose an appropriate software architecture and separate intelligence configuration for my complete system."
 policy:
   allow_implicit_invocation: true

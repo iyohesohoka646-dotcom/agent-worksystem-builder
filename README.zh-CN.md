@@ -1,113 +1,67 @@
-# Agent Worksystem Builder
+# Agent Worksystem Builder · 智能系统构筑器
 
-**构筑可检查、可核验、可恢复的智能体工作系统。**
+通过持续对话、自适应探索、实现与证据，构筑用户需要的完整智能系统。
 
-**Build repeatable agent workflows you can inspect, verify and resume.**
+[简体中文](README.zh-CN.md) · [English](README.md) · [快速上手](docs/quickstart.md) · [升级与回退](docs/upgrade-0.2.md)
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [快速上手](docs/quickstart.md) · [下载 alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)
+[![工程与分发检查](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
 
-[![运行时与分发 CI](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
+这是一个实验性 Codex 插件，目标是自动设计、编排、实现并持续改进**完整智能系统**。持续需求与决策 grill 保留原始目标；“评估—创造—验证—决策”循环探索候选、实施已授权变更、检查真实软件，并将重大取舍交还用户讨论。
 
-Agent Worksystem Builder 是一个实验性的 **Codex 插件**，用于把重复任务构筑为有证据、能复核、可恢复的本地工作流。一个总控按需组合四个小 Skill，分别负责需求、架构、受控执行和核验；它们共享 Python CLI、项目状态和可选的本地 MCP。
+## 三层职责，开放架构
 
-先从随包的材料分类示例开始：保留源文件，输出可追溯的 JSONL/CSV，遇到需要人工判断的条目保存复核请求，再从断点继续。其他领域需要自己的任务契约与核验规则。
+| 层次 | 职责 |
+|---|---|
+| 构筑层 | 由你的 Codex 原生会话理解目标、探索方案、建设与验证。 |
+| 目标系统整体架构 | 按任务组合普通程序、界面、服务、存储、调度、外部接口与部署方式。 |
+| 可选智能层 | 配置交互式及非交互式参与，编排模型、Agent、Skill、插件、MCP、工具、上下文、权限与预算。 |
 
-## 为什么使用它？
+目标系统在 Builder 会话关闭后仍能运行，并拥有独立业务数据。无需强制采用 AWB 的 DAG、SQLite 或总控 Agent。确定性程序足够时，交付可以不包含智能层。
 
-- **复用已有工具。** 给可用的解析器或脚本增加编排，保留原有实现。
-- **让变更可检查。** 记录目标、文件归属、候选改动和实际证据。
-- **让人工决定明确。** 保存复核请求，不代替用户编造批准。
-- **从项目状态恢复。** 跨进程、跨会话保留运行编号与检查点。
+## 一个总控，五个职责模块
 
-适合重复材料处理、文档分类，以及需要人工复核和恢复的小型本地流程。普通的一次性事实问答无需引入工作系统。
+| Skill | 职责 |
+|---|---|
+| building-agent-worksystems | 统筹完整目标的建设循环与恢复，避免局部候选通过后提前结束。 |
+| awb-clarify | 持续 grill：需求、未决问题、重大决策与理由；复用答案，必要时重新打开。 |
+| awb-explore | 环境及资源发现、权威资料检索、架构候选、原型试验与方案比较。 |
+| awb-design | 选择合适的现代程序架构，独立配置智能层。 |
+| awb-execute | 执行已授权工程变更，接入有预算和权限边界的双模式智能节点。 |
+| awb-verify | 核验实际程序、服务、产物与领域结果，检查整体目标覆盖及恢复。 |
 
-## 快速安装
+模块共享版本化 ArchitecturePlan、IntelligenceProfile、ExplorationRecord 契约、原始目标和不可变证据。这些模块是可组合指令，调用它们不会自动创建多个 Agent。重大取舍需要真实用户答案。
 
-在支持插件 marketplace 的 Codex 中执行：
+## 可以这样开始
 
-```powershell
+> 构筑任务工作台，包含界面、服务与持久任务数据。交互式 Codex 讨论任务，非交互式 Codex 执行任务，普通程序核验真实输出。会话关闭后仍可使用，并交付启动、配置、恢复与扩展说明。
+
+> 保留现有程序的接口和回归测试，探索哪些位置适合智能参与，比较候选方案，再实施有依据的改造。新安装、凭据、费用或数据去向变化先和我讨论。
+
+> 构筑确定性 CSV 汇总工具。普通代码足够时，不额外引入模型调用、Agent 或常驻服务。
+
+材料分类继续作为一个领域示例，产品设计空间不限于材料处理或重复流水线。
+
+系统级目标可以包含多个项目、多个任务类型、组件依赖、事件或调度及多处智能参与，具体组织方式通过探索和决策确定。参见[系统级构筑说明](docs/system-level-construction.md)。`examples/task-workbench` 只测试局部双模式与恢复，尚无项目层或跨任务调度，不能替代完整产品或系统级人工验收。
+
+## 能力与验证范围
+
+0.2.0-alpha.1 当前为**尚未发布的候选版**。已加入持久契约、持续 grill 与探索、重大决策门槛、受控写入、app-server 会话／审批／事件、exec 结构化结果、可注册验证器、整体目标覆盖，以及三类独立示例路径。
+
+同一个 C:/codex、Codex 0.158.0 宿主已通过 gpt-6-sol / max 的双模式真实访问；这是用户批准的模型覆盖，未修改全局配置。gpt-6.1-sol 在该登录下不受支持。复用现有提供商配置和规则，不自动开通账户、密钥或收费服务。
+
+工程测试和访问预检不能证明构筑效果提升。完整对照要求六个场景、四个条件、各五次，共 120 次完整构筑尝试，固定宿主与资源、保留所有失败，并检查实际运行结果。模拟用户明确标注；真实人工试用、ChatGPT 导入及官方目录审核分别记录。详见[交付状态](docs/delivery-status.md)和[评测协议](evals/README.md)。
+
+## 安装与使用
+
+最新已发布版本仍为 [0.1.0-alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)，旧标签及附件保持不变。该版本包含旧五模块套件，不包含本轮全部升级。
+
+~~~powershell
 codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref v0.1.0-alpha.4
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
-```
+~~~
 
-开启新会话，选择 `agent-worksystem-builder:building-agent-worksystems`，可以这样提出任务：
+本地候选版按[升级说明](docs/upgrade-0.2.md)构建插件 ZIP，解压并注册本地 marketplace；开启新会话，选择 agent-worksystem-builder:building-agent-worksystems。Python 运行时需要 3.11+ 及随包依赖，优先复用兼容项目环境并运行 doctor。目标业务数据和建设记录放在插件缓存之外。
 
-> 把这些 Markdown 文件构筑成一个本地工作流：保留原文，输出可追溯的 JSONL 和 CSV，争议分类交给我复核，并支持断点恢复。保持离线，先检查现有脚本。
+可选本地 MCP 仍提供八个材料工具和两个资源；广义建设通过原生 Skill／CLI 完成，不自动启用 MCP。Skill 套件 ZIP 与插件上传 ZIP 用途不同，wheel 不包含 Skill。ChatGPT 导入与官方上架尚未确认。
 
-插件提供构筑流程指引，不会自行启动后台服务。Python 运行时需要 Python 3.11+ 及随包声明的依赖；优先复用兼容的项目环境。随包的 doctor 可检查环境是否就绪，不初始化目标项目。本地规则示例不需要模型 API key；使用模型后端时，需要自己的提供商访问权限。
-
-### Git 连接受限怎么办？
-
-从 [发布页面](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4) 下载插件 ZIP，再执行：
-
-```powershell
-Expand-Archive ./agent-worksystem-builder-0.1.0-alpha.4-plugin.zip ./awb-plugin
-codex plugin marketplace add ./awb-plugin/agent-worksystem-builder
-codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
-```
-
-想先运行一个不调用模型、结果可复现的 CLI 示例，参见 [双语快速上手](docs/quickstart.md)。
-
-## 一个总控，四个小 Skill
-
-| 入口 | 职责 | 示例任务 |
-|---|---|---|
-| `building-agent-worksystems` | 总控：选择模块、传递上下文、衔接结果 | “构筑或恢复这个流程。” |
-| `awb-clarify` | 需求、约束和验收样例 | “澄清目标，先不要运行。” |
-| `awb-design` | 架构选型、现有脚本及 Skill/MCP 集成 | “保留解析器，增加可恢复编排。” |
-| `awb-execute` | 已授权改动与有界执行 | “实施这个限定范围的改动并记录运行。” |
-| `awb-verify` | 独立核验、人工复核和安全恢复 | “只检查这个断点，不修改文件。” |
-
-新建系统可按 `澄清 → 设计 → 执行 → 核验` 衔接，已有阶段可以跳过。窄任务在完成当前结果后停止。小模块可以直接调用，但必须与整个套件一起安装；这些指令模块不会自动创建子智能体。
-
-[交接契约](skills/building-agent-worksystems/references/module-contract.md) 传递同一个项目、目标版本、权限、预算、编号及证据。共享运行时和参考文件只保留一份；已初始化项目以 SQLite 为权威状态。
-
-## 最终能检查什么？
-
-| 产物 | 能回答的问题 |
-|---|---|
-| 版本化目标与决策 | 系统要做什么，为什么发生变更 |
-| 候选文件清单与执行记录 | 哪些受控文件改变，实际执行了什么 |
-| 带哈希的 JSONL/CSV 材料输出 | 结果来自哪些源材料 |
-| 保存的复核请求与断点 | 哪些条目等待人工决定，从哪里继续 |
-| 独立核验的证据 | 哪些检查通过、失败或仍未知 |
-
-项目数据放在插件缓存目录之外。执行结束、独立任务核验通过、真实用户目标达成分别判断。
-
-## 应该下载哪个文件？
-
-全部附件见 [alpha.4 发布页面](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)。
-
-| 下载文件 | 用途 |
-|---|---|
-| `agent-worksystem-builder-0.1.0-alpha.4-plugin.zip` | 完整 Codex 插件，可通过本地 marketplace 安装 |
-| `agent-worksystem-skills-0.1.0-alpha.4.zip` | 其他 Skill 主机使用的完整五目录套件，须一起复制 |
-| `agent_worksystem_builder-0.1.0a4-py3-none-any.whl` | 独立 Python 运行时 |
-| 两份 `.manifest.json` | 归档 SHA256 与逐文件完整性检查 |
-
-Skill 套件 ZIP 不能作为单插件归档上传；wheel 不包含 Skills 或开发评测器。插件 ZIP 已准备好用于官方提交，但这不代表已获官方目录批准或已通过 ChatGPT 网页导入。
-
-## 可选 MCP 与外部复用
-
-可选的本地 stdio MCP 在启动时绑定项目，为材料规则示例提供八个结构化工具和两个资源，共用 CLI 的状态、断点与核验器。它不提供人工批准、任意命令执行或操作系统沙箱，也不会自动启用。
-
-参见 [MCP 安装与连接](skills/building-agent-worksystems/references/mcp.md)、[集成与复用指南](skills/building-agent-worksystems/references/integrations-and-skills.md) 和 [架构说明](docs/plugin-architecture.md)。模型后端及其他构筑操作继续通过现有 Skill/CLI 接口进行。
-
-## 当前状态与边界
-
-已发布版本为 **0.1.0-alpha.4**，Python 包版本为 **0.1.0a4**。[发布源码的 CI](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/runs/36823390117) 在 Windows 通过 108 项测试，在 Linux 通过 107 项、跳过 1 项平台限定检查。原生 Codex 0.158.0 安装发现并启用了全部五个 Skill；五个发布附件重新下载后的 SHA256 均与本地一致。
-
-这些检查覆盖运行时、分发和有限路由场景，未证明真实模型效果提升或真实用户材料验收。Codex/Ollama/Claude 的真实推理兼容性、当前会话的 MCP 连接、ChatGPT 网页导入和官方目录批准仍需分别验证。当前为 alpha，不承诺后台持续运行或操作系统隔离。完整证据与限制见 [交付状态](docs/delivery-status.md)。
-
-已发布的版本标签与下载附件保持固定，主分支文档可独立更新。双语版本介绍见 [发布说明](docs/release-alpha4.md)。
-
-## 深入了解、分享与反馈
-
-- [快速上手与预期输出](docs/quickstart.md)
-- [可直接复制的双语推广文案](docs/share.md)
-- [运行时接口](docs/interfaces.md) 与 [评测协议](evals/README.md)
-- [问题反馈与支持](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues)
-
-反馈时请附版本、主机与操作系统、预期结果、实际结果，以及脱敏的最小复现。不要在公开问题中上传凭据或私人材料。
-
-数据处理见 [PRIVACY.md](PRIVACY.md)，使用与许可见 [TERMS.md](TERMS.md)。项目尚未指定开源许可证；公开可见不授予广泛的再分发或修改许可。
+[架构说明](docs/plugin-architecture.md) · [运行接口](docs/interfaces.md) · [双语推广文案](docs/share.md) · [问题反馈](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/issues)

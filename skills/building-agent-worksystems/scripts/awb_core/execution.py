@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import sys
 import threading
@@ -139,12 +140,22 @@ def _execute_once(node, task, context, budget, workspace):
                 raise AWBError(error["code"], error["message"])
             result = response["result"]
         else:
-            args = command_argv(node) if node["backend"] == "command" else codex.argv(node, directory, directory / "schema.json", directory / "final.json")
-            proc = run_process(args, directory, directory / "input.json", output, stderr, timeout, context.get("cancel"))
+            cwd, env = directory, None
+            if node["backend"] == "codex":
+                if node.get("cwd"):
+                    if not context.get("project"):
+                        raise AWBError("policy", "A target working directory requires an explicit project boundary")
+                    cwd = inside(context["project"], node["cwd"])
+                if node.get("codex_home"):
+                    env = dict(os.environ, CODEX_HOME=str(Path(node["codex_home"]).resolve()))
+            args = command_argv(node) if node["backend"] == "command" else codex.argv(node, cwd, directory / "schema.json", directory / "final.json")
+            proc = run_process(args, cwd, directory / "input.json", output, stderr, timeout, context.get("cancel"), env=env)
             record["returncode"] = proc["returncode"]
             if proc["reason"]:
                 raise AWBError(proc["reason"], "Node execution stopped")
             if proc["returncode"] != 0:
+                if node["backend"] == "codex" and codex.failure_error(output):
+                    raise codex.failure_error(output)
                 raise AWBError("process_exit", "Node exited unsuccessfully", returncode=proc["returncode"])
             if node["backend"] == "codex":
                 result = codex.normalize(directory / "final.json", output)
