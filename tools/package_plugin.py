@@ -25,10 +25,10 @@ def validate_skill_suite():
 def package(output=None):
     validate_skill_suite()
     manifest = read_json(ROOT / "plugin.json")
-    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py", "tools/evaluate.py", "evals/README.md", "evals/scenarios.json")]
+    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "README.zh-CN.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py", "tools/evaluate.py", "evals/README.md", "evals/scenarios.json")]
     paths += [p for folder in (ROOT / "skills", ROOT / "assets", ROOT / "examples") for p in folder.rglob("*")
               if distributable(p)]
-    paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md", "plugin-architecture.md")]
+    paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md", "plugin-architecture.md", "quickstart.md", "share.md", "release-alpha4.md")]
     output = Path(output) if output else ROOT / "dist" / f"agent-worksystem-builder-{manifest['version']}-plugin.zip"
     output.parent.mkdir(parents=True, exist_ok=True)
     files = {}

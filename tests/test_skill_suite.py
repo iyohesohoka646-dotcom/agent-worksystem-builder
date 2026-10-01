@@ -58,6 +58,22 @@ def test_plugin_archive_keeps_every_module_and_shared_resources(tmp_path):
     assert_suite_usable(tmp_path / "extracted/agent-worksystem-builder/skills", tmp_path)
 
 
+def test_plugin_archive_preserves_bilingual_documentation_navigation(tmp_path):
+    archive_path = tmp_path / "plugin.zip"
+    packager().package(archive_path)
+    with zipfile.ZipFile(archive_path) as archive:
+        archive.extractall(tmp_path / "extracted")
+    plugin = tmp_path / "extracted/agent-worksystem-builder"
+    for name in ("README.md", "README.zh-CN.md", "docs/quickstart.md", "docs/share.md", "docs/release-alpha4.md"):
+        document = plugin / name
+        assert document.is_file(), f"Readers must retain documentation navigation after extraction: {name}"
+        for link in re.findall(r"\[[^\]]+\]\(([^)]+)\)", document.read_text(encoding="utf-8")):
+            if "://" in link or link.startswith("#"):
+                continue
+            target = (document.parent / link.split("#", 1)[0]).resolve()
+            assert target.is_relative_to(plugin.resolve()) and target.is_file(), (name, link)
+
+
 def test_portable_suite_includes_modules_but_not_evaluation_or_plugin_metadata(tmp_path):
     module = packager()
     assert callable(getattr(module, "package_skill_suite", None)), "Portable suite packager is missing"

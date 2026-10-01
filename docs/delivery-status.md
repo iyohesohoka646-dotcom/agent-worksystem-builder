@@ -21,7 +21,7 @@ Alpha version: `0.1.0-alpha.4` plugin / `0.1.0a4` Python package, checked on 202
 | Claude Code | Executable unavailable in this environment | Pending host checks |
 | Skill behavior | Artifact-based baseline/generic/previous/Builder driver and synthetic corpus shipped; matched real-model matrix not run | Pending |
 | Real user task | User-held material and task acceptance not supplied | Pending |
-| Linux and Windows CI | Alpha.1 GitHub Actions passed on both platforms; current workflow installs the MCP extra and runs runtime/distribution tests. Current-version results are linked from the [commit's GitHub Actions runs](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions) | Check current-version run; independent from model/task acceptance |
+| Linux and Windows CI | Released alpha.4 source run [36823390117](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/runs/36823390117) passed: Windows 108 tests, Linux 107 passed with one platform-specific skip | Passed on release source; independent from model/task acceptance |
 | Official plugin directory | Upload package, listing, icon and submission notes prepared | Pending platform identity/access, scans and review |
 | ChatGPT web import | Earlier alpha.3 upload returned HTTP 400, `Expected a single plugin archive`; the actual request payload has not been inspected, and alpha.4 web import has not been retried | Unresolved; modularization is not a verified upload fix |
 
