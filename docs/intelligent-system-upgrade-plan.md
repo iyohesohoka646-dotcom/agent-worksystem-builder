@@ -2,7 +2,7 @@
 
 This is the approved 0.2.0-alpha.1 implementation scope. The original creation plan and alpha.4 release remain unchanged.
 
-本轮依据用户批准的升级计划执行，保留原始创建计划及 alpha.4 标签、附件。材料分类只是示例。
+本轮实施 0.2 智能系统构筑器升级计划，保留原始创建计划及 alpha.4 标签、附件。材料分类作为领域示例。
 
 ## Construction contract / 构筑契约
 
@@ -23,16 +23,16 @@ Builder runs in a native Codex conversation. The target application chooses ordi
 
 Three families: new task workbench, intelligence enhancement of an existing project, pure deterministic program. Each has one development and one holdout case. Conditions: no dedicated Skill, generic engineering rules, frozen alpha.4, current suite; five repeats each = 120 full construction attempts. Scripted users are labeled simulated; representative actual human use remains a separate gate.
 
-Freeze C:/codex, Codex 0.158.0, gpt-6-sol / max (user-approved per-call override; base configuration unchanged) and identical permissions/resources. Verify real access first. Each attempt: at most 30 host turns, eight construction cycles and 900 seconds; no hidden retries. Preserve failed/cancelled/timed-out/environment outcomes and checkpoint insufficient quota. Inspect running software and actual artifacts; unknown metrics stay null. Never label an incomplete matrix complete. Hard constraint violations block release; improvement claims require actual comparisons.
+Freeze C:/codex, Codex 0.158.0, gpt-6-sol / max (per-call override; base configuration unchanged) and identical permissions/resources. Verify real access first. Each attempt: at most 30 host turns, eight construction cycles and 900 seconds; no hidden retries. Preserve failed/cancelled/timed-out/environment outcomes and checkpoint insufficient quota. Inspect running software and actual artifacts; unknown metrics stay null. Never label an incomplete matrix complete. Hard constraint violations block release; improvement claims require actual comparisons.
 
 Publish 0.2.0-alpha.1 under the existing repository/plugin identity only after acceptance. Official directory review is independent. Do not create paid services or license grants.
 
 ## Execution ledger / 执行记录
 
 - 2026-10-01: clean checkout at 7cb2552, feature branch `feat/intelligent-system-builder`; original source plan retained. Implementation inline with a fresh final review.
-- Ruling: work in the user's named checkout on a feature branch; do not create another worktree without their preference. This keeps the project location and existing Python environment intact.
+- Implementation uses the existing checkout, feature branch and project-local Python environment.
 - Stage 1 RED: eight tests fail on absent contract schemas/state/CLI and missing persisted exploration.
 - Development Skill baseline: independent agent designed the standalone workbench using alpha.4; observed adapter and materials-only runtime gaps. No inference was called. This baseline is not a qualification attempt or proof of Skill improvement.
 - Stage 1–5 engineering checks: versioned contracts, persisted exploration, review gates, general verifiers, whole-goal coverage, dual-mode transport and three standalone example paths are implemented and focused tests pass. Real intelligence is assessed separately.
-- Access gate: both interfaces rejected gpt-6.1-sol with account/model unsupported (400). User explicitly requested trying gpt-6-sol on the same C:/codex host; override only the model and retain max/base config, with a separate preflight receipt and no global edits.
+- Access gate: both interfaces returned account/model unsupported (400) for gpt-6.1-sol. The gpt-6-sol check uses the same C:/codex host, max reasoning and a process-local model override, with a separate receipt and no global edits.
 - Alternate preflight: gpt-6-sol/max passed exec (22.391 s) and app-server (9.75 s). Freeze this same effective model for every condition.

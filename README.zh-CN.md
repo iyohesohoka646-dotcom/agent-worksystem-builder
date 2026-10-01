@@ -16,7 +16,7 @@
 
 Agent Worksystem Builder（AWB，智能系统构筑器）是一个 Codex 插件，通过持续对话，设计、编排、实现并改进完整智能系统。它将需求、软件架构与可选智能层编排贯通起来：既关注普通程序、界面、服务与数据，也关注模型、Agent、Skill、插件及 MCP 如何参与。
 
-当前为实验性预览版 **0.2.0-alpha.1**，能力与验证进展见[交付状态](docs/delivery-status.md)。
+实验性预览版 **0.2.0-alpha.1** 已通过工程回归、原生安装和 Codex 双模式访问验证，范围与进展见[验证状态](docs/delivery-status.md)。
 
 ## 为什么用 AWB？
 

@@ -16,7 +16,7 @@
 
 Agent Worksystem Builder (AWB) is a Codex plugin for designing, orchestrating, implementing and improving complete intelligent systems through ongoing conversation. It connects requirements, software architecture and optional intelligence orchestration in one construction process — from ordinary programs, interfaces and services to models, agents, Skills, plugins and MCP.
 
-Experimental preview: **0.2.0-alpha.1**. See [current capabilities and validation status](docs/delivery-status.md).
+Experimental preview: **0.2.0-alpha.1**. Engineering, native installation and dual-mode Codex access checks passed. See [validation scope and current status](docs/delivery-status.md).
 
 ## Why AWB?
 

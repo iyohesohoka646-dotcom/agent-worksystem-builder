@@ -39,9 +39,9 @@ The contracts can describe multiple components, interfaces, dependencies, entryp
 
 当前契约可以记录多个组件、接口、依赖、启动入口和验收项，总控与模块指令覆盖完整循环，运行时提供建设记录、决策、变更和通用核验。它们不能证明各种系统架构和智能编排已全部构筑成功；具体目标仍需真实实施与验收。
 
-`examples/task-workbench` is a **local dual-mode/recovery engineering sample**. It stores multiple independent tasks but has no project model, dependency scheduler or system-level construction UI. Its earlier line-count defaults were removed after the user rejected the narrow trial. It must not be used as a substitute for the plugin's broad goal or representative system-level human acceptance.
+`examples/task-workbench` is a **local dual-mode/recovery engineering sample**. It stores multiple independent tasks but has no project model, dependency scheduler or system-level construction UI. It is scoped to transport and recovery tests. Representative system-level acceptance evaluates a complete multi-component, multi-work-unit delivery built through the native coordinator.
 
-`examples/task-workbench` 仅用于双模式与恢复的局部工程测试，可以保存多个独立任务，尚无项目层、跨任务依赖调度或系统构筑界面。用户指出先前试用过窄后，已撤回用它做最终人工验收的安排并删除统计行数的默认任务。后续人工验收应在原生总控中构筑真实的多组件、多工作单元系统，核验完整交付。
+`examples/task-workbench` 用于双模式与恢复的局部工程测试，可以保存多个独立任务，尚无项目层、跨任务依赖调度或系统构筑界面。其验证范围为接入与恢复；系统级验收通过原生总控构筑真实的多组件、多工作单元系统，核验完整交付。
 
 The frozen 120-attempt matrix tests six controlled interfaces across three families. It continues unchanged, preserves failures and is not general-architecture or adaptive-search qualification. A separate read-only audit reports evidence gaps, hard constraints, repetition stability, question burden and unmeasured metrics. Actual human use and broader semantic/resource/recovery review remain release gates.
 

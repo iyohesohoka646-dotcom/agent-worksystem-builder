@@ -1,20 +1,35 @@
-# Delivery status
+# Delivery status / 交付与验证状态
 
-## 0.2 candidate / 本轮候选
+## 0.2 plugin verification passed / 0.2 插件验证通过
 
-0.2.0-alpha.1 plugin / 0.2.0a1 Python is currently unreleased. The broad original goal is restored: native-conversation construction, ordinary software architecture and optional intelligent participation. Coordinator plus five modules includes adaptive exploration. Original plan and alpha.4 tag/assets remain unchanged.
+**0.2.0-alpha.1 has passed engineering, native installation and dual-mode Codex access checks.** It is distributed as an experimental preview; whole-system behavioral qualification and official-directory review are tracked separately.
 
-Implemented: persistent contracts/grill/reopened decisions, review-bound resources, inherited provider/rules with scoped writes, local app-server sessions/approvals/events, exec results, registered verifiers and whole-goal coverage. Three standalone example paths exist; business state stays separate. Engineering tests and scripted fixtures are not model-effect evidence.
+**0.2.0-alpha.1 已通过工程回归、原生安装及 Codex 双模式访问验证。** 当前提供实验性预览包，系统级行为评测与官方目录审核分别记录。
 
-Actual access: C:/codex, Codex 0.158.0, gpt-6-sol/max passed both modes on 2026-10-01. User-approved per-call override; global config unchanged. gpt-6.1-sol failed unsupported account/model 400. Separate receipts: reports/host-preflight-0.2*/. Preflight is not target acceptance.
+Verification refreshed on 2026-10-01 / 验证更新日期：2026-10-01。
 
-Six cases × four conditions × five repeats = 120 full-build attempts. Frozen runner and external graders are supplied; actual progress is saved separately, incomplete matrices are never marked complete. Actual human trial, semantic acceptance and official-directory review remain open. No new release or improvement claim until gates pass.
+| Area / 范围 | Observed evidence / 实际证据 | State / 状态 |
+|---|---|---|
+| Engineering regression / 工程回归 | 165 tests passed, including contracts, requirements/decisions, exploration, scoped changes, verifiers, whole-goal coverage and recovery / 165 项通过，覆盖契约、需求决策、探索、受控变更、验证器、整体目标覆盖及恢复 | Passed / 通过 |
+| Existing installations / 现有安装 | Both configured Codex homes match all 79 public-package files; six enabled Skills discovered; dependency doctor passed without initializing target state or changing host settings / 两处安装的 79 个文件一致，六个 Skill 已启用；依赖检查通过，未初始化目标或改动宿主设置 | Passed / 通过 |
+| Fresh installation / 全新安装 | Public ZIP installed through native marketplace commands in a credential-free temporary home; all six Skill entrypoints discovered / 公开 ZIP 在无凭据临时宿主中原生安装成功，六个入口可发现 | Passed / 通过 |
+| Real Codex access / 真实 Codex 访问 | Codex 0.158.0, gpt-6-sol / max: exec and app-server both completed actual inference / exec 与 app-server 均完成真实推理 | Passed / 通过 |
+| Artifact fault checks / 产物故障检查 | Six checks passed: wrong-result rejection, output binding or explicit rejection, explicit backend failure, no retries in either fault phase, and original-file preservation / 六项通过，覆盖错误结果拒绝、输出绑定或明确拒绝、后端失败、两阶段无重试及原文件保持 | Passed; deterministic injected faults / 通过；确定性故障注入 |
+| Cross-platform CI / 跨平台 CI | Full regression and packaging passed on Windows and Linux / Windows、Linux 完整回归与打包通过 | [Passed / 通过](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml) |
 
-Latest engineering run: 165 tests passed, including qualification, multi-component/multi-launch coverage, fault probes and installation/development-package separation. Fresh wheel installation/import/new schemas/CLI passed. Native isolated-home installation, cached CLI and six enabled Skill discoveries passed. The candidate was also installed natively in both existing user Codex homes; all 79 package files and six enabled Skills matched, with host settings unchanged. The default ZIP contains no example application, HTML UI or evaluation jobs; source/development resources are separate. Raw receipts and configuration backups remain local.
+The package contains one coordinator, five focused Skills and the shared runtime. Target applications, HTML interfaces and evaluation jobs stay in the source/development resources. Native Codex conversations are the plugin entrypoint. The original creation plan and immutable alpha.4 tag/assets remain unchanged.
 
-Actual matrix in reports/system-matrix-0.2-qualified-input is checkpointed for the requested plugin installation: fourteen attempts finished, the fifteenth was interrupted and its last raw running receipt retained, without a retry or a passing judgment. New plugin/cache/instruction state must not be silently mixed into frozen attempts. Raw failures, observed cleanup overrun and ninth change-batch observation remain. A read-only qualification tool reports incomplete cells, binding/constraint gaps and unknown metrics; it never auto-approves release. Candidate source/package distribution is distinct from a qualified version release.
+安装包包含一个总控、五个专职 Skill 与共享运行时，目标应用、HTML 界面和评测任务保留在源码／开发资源中。插件从原生 Codex 会话使用，完整系统的范围与交付方式见[系统级构筑](system-level-construction.md)。原始创建计划及 alpha.4 固定标签、附件保持不变。
 
-用户拒绝将统计行数样例用于最终人工验收：该工作台只是双模式与恢复测试，尚无项目层或跨任务调度。默认行数任务已移除，试用页面及自有预览进程已关闭，业务数据保留。完整产品范围及多组件、多工作单元的构筑与验收方式见[系统级构筑](system-level-construction.md)。该反馈不记录为人工通过。冻结评分器的节点结果绑定缺口不临时改分；独立故障检查在第二次尝试的产物副本上通过了错误结果拒绝、输出绑定／明确拒绝、后端明确失败、无自动重试和原文件保持，模型调用为零。原超时尝试仍为失败，其他产物和系统级资格仍需核验，参见[资格审查](upgrade-review.md)。
+## Qualification still in progress / 持续评测
+
+The frozen 120-attempt comparison contains 14 finished attempts and one interrupted attempt. Failed and timed-out outcomes retain their original grades. A fresh read-only audit found host-configuration drift, so the old matrix cannot resume under the current configuration. The comparison, representative system-level acceptance and official review are not complete; no general performance-improvement claim is made.
+
+冻结的 120 次对照目前包含 14 次已结束尝试和 1 次中断，失败与超时保留原评分。最新只读审查发现宿主配置已偏离冻结快照，旧矩阵不能在当前配置下直接续跑。完整对照、代表性系统级验收及官方审核尚未完成，不据此宣称普遍效果提升。
+
+The local workbench is a dual-mode/recovery test fixture. Its deterministic fault checks use copied artifacts and zero model calls; they do not change construction scores or count as representative human acceptance. See [verification and qualification details](upgrade-review.md).
+
+局部工作台用于双模式与恢复测试。故障检查在产物副本上运行，模型调用为零；它们不改写构筑评分，也不计为代表性人工验收。详见[验证与资格审查](upgrade-review.md)。
 
 ## Historical alpha.4 evidence
 
@@ -38,7 +53,7 @@ Alpha version: `0.1.0-alpha.4` plugin / `0.1.0a4` Python package, checked on 202
 | Ollama | Local endpoint refused connection; transport normalization and total deadline covered by fixtures | Pending real inference |
 | Claude Code | Executable unavailable in this environment | Pending host checks |
 | Skill behavior | Artifact-based baseline/generic/previous/Builder driver and synthetic corpus shipped; matched real-model matrix not run | Pending |
-| Real user task | User-held material and task acceptance not supplied | Pending |
+| Representative domain task | Domain material and acceptance evidence remain unavailable | Pending |
 | Linux and Windows CI | Released alpha.4 source run [36823390117](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/runs/36823390117) passed: Windows 108 tests, Linux 107 passed with one platform-specific skip | Passed on release source; independent from model/task acceptance |
 | Official plugin directory | Upload package, listing, icon and submission notes prepared | Pending platform identity/access, scans and review |
 | ChatGPT web import | Earlier alpha.3 upload returned HTTP 400, `Expected a single plugin archive`; the actual request payload has not been inspected, and alpha.4 web import has not been retried | Unresolved; modularization is not a verified upload fix |

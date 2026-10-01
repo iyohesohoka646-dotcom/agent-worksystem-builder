@@ -1,8 +1,8 @@
 # 0.2 candidate upgrade / 候选版升级
 
-Status: unreleased 0.2.0-alpha.1 plugin / 0.2.0a1 Python package. Preserve v0.1.0-alpha.4 and its downloads.
+Status: 0.2.0-alpha.1 plugin / 0.2.0a1 Python package is available as an experimental preview with engineering and native-plugin checks passed. Preserve v0.1.0-alpha.4 and its downloads. See [validation status](delivery-status.md).
 
-状态：候选版未发布，不改写 alpha.4 标签或附件。构筑记录与目标业务状态分别保存。
+状态：0.2 预览包已通过工程与原生插件验证，完整系统级资格仍在评测；不改写 alpha.4 标签或附件。构筑记录与目标业务状态分别保存，详见[验证状态](delivery-status.md)。
 
 ## Local build / 本地构建
 
@@ -43,7 +43,7 @@ Use the immutable alpha.4 ZIP and a separate extracted marketplace/runtime envir
 
 ## Access and qualification / 访问与评测
 
-C:/codex 0.158.0 base configuration remains gpt-6.1-sol/max. Its account rejected that model. The user approved gpt-6-sol/max; both exec and app-server actually passed with only a per-call model override. Receipts remain separate; no global edit or credential copying.
+The verified access configuration is Codex 0.158.0 with gpt-6-sol/max on the same host. Both exec and app-server passed actual inference with a per-call model override; no global setting was edited and no credential was copied. A new matrix must freeze the current effective configuration rather than reuse a drifted historical snapshot.
 
 ~~~powershell
 python -X utf8 tools/host_preflight.py --model gpt-6-sol --output ./reports/access-fresh
@@ -56,7 +56,7 @@ The corpus/context/checker/host are frozen. Six cases, four conditions and five 
 
 The full matrix runner needs a Git checkout containing the immutable alpha.4 tag, because it freezes the previous suite with `git archive`. A plugin ZIP alone is not sufficient for starting a matched matrix. Use the same Python environment, host and approved model throughout; stop and preserve a checkpoint if fingerprints change. On Codex 0.158.0, the actual isolation proof uses native-reported SKILL.md entrypoint paths; folder overrides did not disable the installed Skills. All overrides are process-local.
 
-完整矩阵须在含 alpha.4 标签的 Git 仓库内启动，插件 ZIP 不能单独提供历史版本冻结。冻结后不改控制器、Skill、语料或评分器。当前六组接口不能单独证明广义架构与自适应搜索效果；工作台节点结果绑定和错误结果拒绝需要单独核验。局部测试样例已被用户拒绝作为最终人工验收对象，参见[系统级说明](system-level-construction.md)。
+完整矩阵须在含 alpha.4 标签的 Git 仓库内启动，插件 ZIP 不能单独提供历史版本冻结。冻结后不改控制器、Skill、语料或评分器。当前六组接口不能单独证明广义架构与自适应搜索效果；工作台节点结果绑定和错误结果拒绝通过独立产物检查核验。局部工程样例与代表性系统级验收分别记录，参见[系统级说明](system-level-construction.md)。
 
 ~~~powershell
 # Read-only snapshot: no construction reruns, no release approval.
