@@ -2,7 +2,7 @@
 name: awb-design
 description: Use when choosing a target system's software architecture or intelligence participation, model, Skill, plugin, MCP and tool configuration, including adapting an existing project.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # AWB Architecture and Integration
@@ -13,7 +13,7 @@ Read the shared [handoff contract](../building-agent-worksystems/references/modu
 
 Inspect working programs and interfaces first. Preserve their inputs and implementation; define regression checks and additive intelligence participation. Describe components, interfaces, dependencies, entrypoints and requirement-linked acceptance in ArchitecturePlan; do not introduce a universal workflow language. Ordinary control flow, event-driven code, UI/service/database architecture and durable/distributed frameworks are all candidates when appropriate. Deterministic code alone is a valid result.
 
-Describe target intelligence separately in IntelligenceProfile, including interactive app-server sessions and noninteractive `codex exec`, model/resources/context, authority and budgets. Preserve working provider configuration and applicable rules. Target business state belongs to the target application; AWB's construction journal remains authoritative only for construction. Link lifecycles by actual identifiers/artifacts, never force target business data into the Builder's SQLite or DAG.
+Describe target intelligence separately in IntelligenceProfile: choose none, interactive, noninteractive or mixed according to the target's needs, then configure the selected provider's actual interfaces, model/resources/context, authority and budgets. For a target that selects Codex, use interactive app-server sessions and/or noninteractive `codex exec` as appropriate; neither is mandatory for other targets. Preserve working provider configuration and applicable rules. Target business state belongs to the target application; AWB's construction journal remains authoritative only for construction. Link lifecycles by actual identifiers/artifacts, never force target business data into the Builder's SQLite or DAG.
 
 Classify capability evidence as tested, documented, unknown or unsupported. A version check does not prove inference; an HTTP fixture does not prove model behavior. Offline goals exclude undeclared remote destinations. MCP provides typed operations, not OS isolation, and optional MCP absence does not prevent a CLI design. Reading documentation does not authorize downloads, host configuration or publication.
 

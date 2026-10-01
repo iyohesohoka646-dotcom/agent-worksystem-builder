@@ -54,11 +54,13 @@ def discover(binary, root, env, plugin_id="agent-worksystem-builder@agent-worksy
             send({"method": "initialized"})
             send({"id": 2, "method": "skills/list", "params": {"cwds": [str(root)], "forceReload": True}})
             response = receive(2)
-            skills = [s for entry in response.get("result", {}).get("data", []) for s in entry["skills"]
+            all_skills = [s for entry in response.get("result", {}).get("data", []) for s in entry["skills"]]
+            skills = [s for s in all_skills
                       if s.get("pluginId") == plugin_id]
             required = {"building-agent-worksystems", "awb-clarify", "awb-explore", "awb-design", "awb-execute", "awb-verify"}
             enabled = {s["name"].split(":")[-1] for s in skills if s["enabled"]}
-            return {"passed": required.issubset(enabled), "skills": skills}
+            return {"passed": required.issubset(enabled), "skills": skills,
+                    "standalone_skills": [s for s in all_skills if not s.get("pluginId") and s["name"] == "agent-worksystem-builder"]}
         except (queue.Empty, OSError) as exc:
             return {"passed": False, "error": str(exc)}
         finally:

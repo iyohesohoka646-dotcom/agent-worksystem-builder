@@ -22,12 +22,12 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e .[test,mcp]
       - run: python -X utf8 -m pytest -q -p no:cacheprovider --junitxml=reports/runtime-tests.xml
-      - run: python -X utf8 tools/package_plugin.py
+      - run: python -X utf8 tools/package_plugin.py --format all
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: evidence-${{ matrix.os }}
           path: |
             reports/runtime-tests.xml
-            dist/*plugin.zip
+            dist/*.zip
             dist/*.manifest.json

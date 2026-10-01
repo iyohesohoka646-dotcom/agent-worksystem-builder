@@ -1,8 +1,8 @@
 # Use the Codex plugin / 使用 Codex 插件
 
-AWB runs in your native Codex conversation. Install the six-Skill 0.2 candidate plugin, select its coordinator and describe the complete system you want. There is no AWB website to open and no Builder server to launch. The candidate's full behavior qualification remains pending. See [upgrade and rollback](upgrade-0.2.md).
+AWB runs in your native Codex conversation. Install the six-Skill plugin, select its coordinator and describe the complete system you want. There is no AWB website to open and no Builder server to launch. For desktop/web ZIP upload or a standalone cross-host Skill, use the distinct [installation packages](distribution.md). Full behavior qualification remains pending. See [upgrade and rollback](upgrade-0.2.md).
 
-AWB 在 Codex 原生会话中运行。安装六模块的 0.2 候选插件，选择总控并描述完整系统目标，无需打开网站或启动 Builder 服务。完整能力评测仍待验收；升级与回退见[说明](upgrade-0.2.md)。
+AWB 在 Codex 原生会话中运行。安装六模块插件，选择总控并描述完整系统目标，无需打开网站或启动 Builder 服务。桌面／网页 ZIP 上传和跨宿主独立 Skill 使用不同的[安装包](distribution.md)。完整能力评测仍待验收；升级与回退见[说明](upgrade-0.2.md)。
 
 [English overview](../README.md) · [中文首页](../README.zh-CN.md) · [Plugin ZIP / 插件下载](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip)
 

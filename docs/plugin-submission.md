@@ -2,7 +2,7 @@
 
 ## Current candidate / 当前候选
 
-0.2.0-alpha.1 is unreleased and not approved for submission. Its broad positioning is adaptive construction of complete intelligent systems, with one controller plus five modules, including exploration. Confirm full qualification and system-level human acceptance before updating a public release or submitting the official listing. See [upgrade review](upgrade-review.md) and [system-level scope](system-level-construction.md). No official upload or review is claimed. The following alpha.4 record is historical; its tag and assets are preserved.
+0.2.0-alpha.2 is an experimental distribution update, not an approved official listing. Its broad positioning is adaptive construction of complete intelligent systems, with one controller plus five modules, including exploration. The dedicated `codex-import.zip` separates hosted upload input from the local marketplace; its hosted acceptance is still unverified. See [package choices](distribution.md), [upgrade review](upgrade-review.md) and [system-level scope](system-level-construction.md). Full behavioral qualification and system-level acceptance remain separate gates; no official upload or review is claimed. The following alpha.4 record is historical; its tag and assets are preserved.
 
 新版尚未通过发布门槛，不能用单任务样例代替系统级人工验收。正式上架需要实际平台访问、身份、扫描和审核；此前白屏及导入错误的记录保留。
 

@@ -2,7 +2,7 @@
 name: awb-clarify
 description: Use when an intelligent system's requirements, acceptance examples or consequential decisions are unclear, including during construction or when its goal changes.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # AWB Requirements

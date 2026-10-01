@@ -2,7 +2,7 @@
 name: awb-verify
 description: Use when independently checking intelligent-system software, services or artifacts, deciding a construction candidate, inspecting checkpoints, or handling human review and recovery.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # AWB Verification and Recovery

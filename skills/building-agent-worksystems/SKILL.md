@@ -2,7 +2,7 @@
 name: building-agent-worksystems
 description: Use when a user wants to design, implement, improve or resume an intelligent system spanning ordinary software architecture and optional interactive or noninteractive intelligence. Ordinary one-off questions do not need this skill.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # Building Agent Worksystems

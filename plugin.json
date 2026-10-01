@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agent-worksystem-builder",
-  "version": "0.2.0-alpha.1",
+  "version": "0.2.0-alpha.2",
   "description": "Build complete intelligent systems through continuous requirements grill, adaptive exploration and evidence-backed software and intelligence orchestration.",
   "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
   "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
@@ -12,7 +12,7 @@
       "interface": {
         "displayName": "Agent Worksystem Builder",
         "shortDescription": "Build complete intelligent systems",
-        "longDescription": "A native Codex coordinator composes five focused Skills for continuous requirements grill, adaptive exploration, architecture and intelligence configuration, implementation, and independent verification. Targets choose ordinary software architecture and optional interactive/noninteractive intelligence without mandatory AWB DAG or business storage. Versioned contracts, recoverable construction state, general verifiers and three standalone examples are implemented. Python 3.11+; MCP is optional. This 0.2 candidate is not release-qualified: gpt-6-sol/max actual access passed in both modes; 120 matched builds and human acceptance remain gates.",
+        "longDescription": "Build complete intelligent systems through continuous requirements grill, adaptive exploration, architecture design, implementation and independent verification. One coordinator composes five focused Skills. Targets choose ordinary software architecture and optional interactive/noninteractive intelligence without mandatory AWB DAG or business storage. Includes versioned contracts, recoverable construction state and general verifiers. Python 3.11+ for the shared runtime; MCP is optional. Experimental preview; validation scope and limits are documented in the repository.",
         "developerName": "iyohesohoka646-dotcom",
         "category": "Productivity",
         "capabilities": ["Design software and intelligence layers", "Explore alternatives", "Implement and verify systems", "Resume construction decisions"],
@@ -28,9 +28,9 @@
       },
       "onboardingSkill": "./skills/building-agent-worksystems/SKILL.md",
       "publication": {
-        "release_notes": "Unreleased 0.2 candidate restores broad intelligent-system construction, adds exploration and versioned architecture/intelligence contracts, dual-mode Codex adapters, general verification and whole-goal coverage. Existing CLI/MCP remain compatible; alpha.4 assets unchanged. Qualification and official approval are separate pending gates.",
+        "release_notes": "0.2.0-alpha.2 separates the single-plugin upload archive from the CLI marketplace bundle and adds one self-contained, host-adaptive Agent Skill containing all five modules. Existing CLI/MCP remain compatible; previous version assets are preserved. Hosted upload acceptance, behavioral qualification and official approval are recorded separately.",
         "translations": {
-          "zh-CN": {"subtitle": "自动编排与实现完整智能系统", "description": "通过持续需求 grill、自适应探索与评估—创造—验证—决策循环，构筑用户需要的完整系统；整体软件架构与可选交互、非交互智能层分别设计。新增探索模块、版本化契约和通用核验。0.2 为未发布候选，gpt-6-sol/max 双模式真实访问已通过；120 次对照构筑和人工试用仍待验收。"}
+          "zh-CN": {"subtitle": "自动编排与实现完整智能系统", "description": "通过持续需求 grill、自适应探索与评估—创造—验证—决策循环，构筑完整智能系统；整体软件架构与可选交互、非交互智能层分别设计。总控组合五个模块，支持版本化契约、恢复与通用核验。0.2.0-alpha.2 提供独立插件上传包及自包含通用 Skill，实际验证范围见仓库文档。"}
         }
       }
     }

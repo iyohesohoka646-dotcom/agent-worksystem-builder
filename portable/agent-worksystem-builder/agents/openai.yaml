@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Worksystem Builder"
+  short_description: "Build complete systems with any capable agent host"
+  default_prompt: "Use $agent-worksystem-builder to explore, design, implement and verify my complete system with this host's available tools."

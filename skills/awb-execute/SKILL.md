@@ -2,7 +2,7 @@
 name: awb-execute
 description: Use when an intelligent system has an authorized implementation, goal update, target configuration or bounded candidate run to carry out.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # AWB Controlled Execution

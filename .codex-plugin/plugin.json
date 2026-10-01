@@ -1,6 +1,6 @@
 {
   "name": "agent-worksystem-builder",
-  "version": "0.2.0-alpha.1",
+  "version": "0.2.0-alpha.2",
   "description": "Build complete intelligent systems through adaptive grill, exploration, software architecture and optional intelligence orchestration.",
   "author": {"name": "iyohesohoka646-dotcom", "url": "https://github.com/iyohesohoka646-dotcom"},
   "homepage": "https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder",
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Agent Worksystem Builder",
     "shortDescription": "Build complete intelligent systems",
-    "longDescription": "Native Codex constructs complete software and optional interactive/noninteractive intelligence through six composable Skills, versioned contracts and independent verification. Python 3.11+. Unreleased 0.2 candidate; see delivery status for passed gpt-6-sol/max dual-mode access, pending matched evaluation and user acceptance.",
+    "longDescription": "Construct complete software and optional interactive/noninteractive intelligence through six composable Skills, continuous requirements grill, adaptive exploration, versioned contracts and independent verification. Python 3.11+ for the shared runtime. Experimental preview; validation scope is documented in the repository.",
     "developerName": "iyohesohoka646-dotcom",
     "category": "Productivity",
     "capabilities": ["Design software and intelligence layers", "Explore alternatives", "Implement and verify systems", "Resume construction decisions"],

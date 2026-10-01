@@ -1,5 +1,19 @@
 # Delivery status / 交付与验证状态
 
+## 0.2.0-alpha.2 distribution update / 分发升级
+
+The new dedicated `codex-import.zip` contains one Codex manifest and no marketplace catalog. It installed through native Codex commands in a fresh credential-free home and exposed all six enabled Skills. The separate standalone `skill.zip` contains one entrypoint, five local reference modules and the shared runtime; its validator, relative-link checks, real CLI launch, preservation/path-escape installer tests and read-only host-adaptive instruction-consumption checks passed. The latter checks used a simulated non-Codex tool boundary and are not actual Claude/Gemini host acceptance. See [packages and installation](distribution.md).
+
+新增 `codex-import.zip` 仅含一个 Codex 清单，不夹带市场目录；已在无凭据的新宿主中原生安装，六个 Skill 均可发现。独立 `skill.zip` 包含一个入口、五个内部模块与共享运行时；入口校验、相对引用检查、真实 CLI 启动、安装保留／路径越界测试和只读宿主适配消费检查通过。宿主适配检查采用模拟的非 Codex 工具边界，不计作 Claude／Gemini 产品验收。安装方式见[分发说明](distribution.md)。
+
+**Desktop/web hosted ZIP import remains unverified.** The browser controller can list the ChatGPT plugin tab but repeatedly times out reading it; native app UI control is unavailable. The dedicated upload ZIP is a packaging compatibility remediation, not a captured server-side diagnosis or proof of hosted acceptance. The historical `Expected a single plugin archive` error is retained. Do not use native CLI success to close this issue.
+
+**桌面／网页 ZIP 导入仍待实际复验。** 浏览器控制可列出 ChatGPT 插件页，但读取页面连续超时，当前无原生应用 UI 控制能力。专用上传包属于结构兼容修正，尚无服务端根因或托管接受证据。保留历史 `Expected a single plugin archive` 错误，原生 CLI 成功不用于关闭此问题。
+
+This update preserves prior archives, source plan, broad system-building scope and construction/runtime interfaces. It does not change the frozen behavioral evaluation or imply official approval. The following sections retain their explicitly versioned alpha.1 and alpha.4 evidence.
+
+本次保留旧包、原始创建计划、广义系统构筑目标与运行接口，不改写冻结行为评测，也不代表官方审核通过。下列 alpha.1 与 alpha.4 证据按原版本保留。
+
 ## 0.2 plugin verification passed / 0.2 插件验证通过
 
 **0.2.0-alpha.1 has passed engineering, native installation and dual-mode Codex access checks.** It is distributed as an experimental preview; whole-system behavioral qualification and official-directory review are tracked separately.

@@ -2,7 +2,7 @@
 name: awb-explore
 description: Use when intelligent-system construction needs evidence about environments, resources, architectures or uncertain implementation decisions, including research, prototypes and solution comparisons.
 metadata:
-  version: 0.2.0a1
+  version: 0.2.0a2
 ---
 
 # AWB Adaptive Exploration

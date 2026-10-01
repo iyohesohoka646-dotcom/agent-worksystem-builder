@@ -16,7 +16,7 @@
 
 Agent Worksystem Builder (AWB) is a Codex plugin for designing, orchestrating, implementing and improving complete intelligent systems through ongoing conversation. It connects requirements, software architecture and optional intelligence orchestration in one construction process — from ordinary programs, interfaces and services to models, agents, Skills, plugins and MCP.
 
-Experimental preview: **0.2.0-alpha.1**. Engineering, native installation and dual-mode Codex access checks passed. See [validation scope and current status](docs/delivery-status.md).
+Experimental preview: **0.2.0-alpha.2**. A dedicated plugin-upload archive and a self-contained portable Skill are now available. See [installation packages](docs/distribution.md) and [validation scope](docs/delivery-status.md).
 
 ## Why AWB?
 
@@ -39,7 +39,7 @@ Open a new Codex conversation, select `agent-worksystem-builder:building-agent-w
 >
 > Use AWB to discover existing resources, discuss key requirements and explore architecture choices. Then implement and verify the complete system. Preserve existing interfaces and unrelated changes; discuss major trade-offs with me.
 
-Prefer a ZIP? [Download the plugin](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip) and follow the [installation guide](docs/quickstart.md). Shared Python tooling requires Python 3.11+; dependency setup is in the guide.
+Prefer a ZIP? [Plugin upload ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.2/agent-worksystem-builder-0.2.0-alpha.2-codex-import.zip) · [Portable Skill ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.2/agent-worksystem-builder-0.2.0-alpha.2-skill.zip) · [Installation instructions](docs/distribution.md). Upload acceptance is tracked separately from native CLI installation. The portable Skill uses your current agent's tools; Python 3.11+ is needed only for the shared runtime.
 
 ## How it works
 

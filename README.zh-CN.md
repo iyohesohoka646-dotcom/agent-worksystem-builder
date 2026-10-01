@@ -16,7 +16,7 @@
 
 Agent Worksystem Builder（AWB，智能系统构筑器）是一个 Codex 插件，通过持续对话，设计、编排、实现并改进完整智能系统。它将需求、软件架构与可选智能层编排贯通起来：既关注普通程序、界面、服务与数据，也关注模型、Agent、Skill、插件及 MCP 如何参与。
 
-实验性预览版 **0.2.0-alpha.1** 已通过工程回归、原生安装和 Codex 双模式访问验证，范围与进展见[验证状态](docs/delivery-status.md)。
+实验性预览版 **0.2.0-alpha.2** 提供独立的插件上传包与自包含通用 Skill 包，见[安装方式](docs/distribution.md)与[验证状态](docs/delivery-status.md)。
 
 ## 为什么用 AWB？
 
@@ -39,7 +39,7 @@ codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 >
 > 使用 AWB 发现现有资源，持续讨论关键需求，探索架构选择，再实现并核验完整系统。保留已有接口和无关改动，重大取舍与我讨论。
 
-也可以[下载插件 ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip)，按[安装指南](docs/quickstart.md)操作。共享 Python 工具需要 Python 3.11+，依赖配置见指南。
+ZIP 下载：[插件上传包](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.2/agent-worksystem-builder-0.2.0-alpha.2-codex-import.zip) · [通用 Skill 包](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.2/agent-worksystem-builder-0.2.0-alpha.2-skill.zip) · [安装说明](docs/distribution.md)。界面上传与原生 CLI 安装分别核验。通用 Skill 使用当前智能体的工具，仅共享运行时需要 Python 3.11+。
 
 ## 它如何工作？
 
