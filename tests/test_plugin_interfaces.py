@@ -223,7 +223,7 @@ def test_packaged_evaluator_checks_matrix_budget_before_running_host(tmp_path):
     import zipfile
     from tools.package_plugin import package
     archive_path = tmp_path / "plugin.zip"
-    package(archive_path)
+    package(archive_path, developer=True)
     with zipfile.ZipFile(archive_path) as archive:
         archive.extractall(tmp_path / "extracted")
     root = tmp_path / "extracted/agent-worksystem-builder"
@@ -238,3 +238,26 @@ def test_packaged_evaluator_checks_matrix_budget_before_running_host(tmp_path):
     assert json.loads(result.stdout)["code"] == "eval"
     assert json.loads(result.stdout)["details"]["required"] == 30
     assert not output.exists()
+
+
+def test_installable_plugin_does_not_ship_target_apps_or_evaluation_jobs(tmp_path):
+    import zipfile
+    from tools.package_plugin import package
+    archive_path = tmp_path / "plugin.zip"
+    package(archive_path)
+    with zipfile.ZipFile(archive_path) as archive:
+        files = {name.removeprefix("agent-worksystem-builder/") for name in archive.namelist()}
+        assert not any(name.startswith(("examples/", "evals/", "tools/", "tests/")) for name in files)
+        assert "skills/building-agent-worksystems/scripts/awb.py" in files
+        assert "skills/building-agent-worksystems/scripts/awb_mcp.py" in files
+        assert "skills/awb-explore/SKILL.md" in files
+        assert "docs/quickstart.md" in files
+        assert not any(name.endswith(".html") for name in files)
+
+
+def test_installable_plugin_archive_is_reproducible(tmp_path):
+    from tools.package_plugin import package
+    first, second = tmp_path / "first.zip", tmp_path / "second.zip"
+    package(first)
+    package(second)
+    assert first.read_bytes() == second.read_bytes()

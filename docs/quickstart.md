@@ -1,19 +1,19 @@
-# Quick start / 快速上手
+# Use the Codex plugin / 使用 Codex 插件
 
-For broad 0.2 construction and candidate installation, see [upgrade instructions](upgrade-0.2.md). Start with the whole application goal, ordinary architecture and optional intelligence; ongoing grill/exploration keeps the target intact. Below are the retained immutable alpha.4 installation and materials example, not new-version installation.
+AWB runs in your native Codex conversation. Install the six-Skill 0.2 candidate plugin, select its coordinator and describe the complete system you want. There is no AWB website to open and no Builder server to launch. The candidate's full behavior qualification remains pending. See [upgrade and rollback](upgrade-0.2.md).
 
-本轮广义构筑与安装见[升级说明](upgrade-0.2.md)。说明完整目标、现有程序、权限和预算；总控持续 grill、探索并核验整体需求。下文保留已发布 alpha.4 的安装及材料示例。
+AWB 在 Codex 原生会话中运行。安装六模块的 0.2 候选插件，选择总控并描述完整系统目标，无需打开网站或启动 Builder 服务。完整能力评测仍待验收；升级与回退见[说明](upgrade-0.2.md)。
 
-[English overview](../README.md) · [中文首页](../README.zh-CN.md) · [Downloads / 下载](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)
+[English overview](../README.md) · [中文首页](../README.zh-CN.md) · [Plugin ZIP / 插件下载](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip)
 
-Choose the plugin route to work in Codex, or the CLI walkthrough to inspect a repeatable local example without calling a model. The walkthrough uses synthetic documents and a simulated reviewer; it is not a benchmark or a real human-acceptance test.
+The plugin ZIP contains no target application, HTML interface or evaluation jobs. The optional developer walkthrough below needs a repository checkout and uses synthetic documents and a simulated reviewer; it is not the plugin entrypoint, a benchmark or a real human-acceptance test.
 
-在 Codex 中协作可选插件安装；想先看实际记录和产物，可运行不调用模型的本地 CLI 示例。示例使用合成材料与模拟复核者，不代表真实模型基准或真实人工验收。
+插件 ZIP 不包含目标应用、HTML 界面或评测任务。下方可选开发示例须在源码检出目录运行，使用合成材料和模拟复核者；不作为插件入口、真实模型基准或人工验收。
 
 ## 1. Install in Codex / 安装到 Codex
 
 ```powershell
-codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref v0.1.0-alpha.4
+codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref main
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 ```
 
@@ -21,19 +21,30 @@ Open a new session and select the coordinator `agent-worksystem-builder:building
 
 开启新会话并选择总控 `agent-worksystem-builder:building-agent-worksystems`。说明哪些内容必须保留、需要什么输出，以及哪些情况必须由人决定。窄任务也可直接选择相应小模块。
 
-> Build a local document-triage workflow. Keep my existing parser and source files, export JSONL/CSV with source evidence, stop for ambiguous cases and preserve a checkpoint. Do not use cloud services.
+> Build a complete system for my actual workflow. Discover existing resources, grill consequential requirements, explore architecture choices, then implement and verify the whole goal. Preserve existing interfaces and unrelated changes. Ask before new credentials, costs or changed data destinations.
 
-> 构筑本地文档分类流程。保留现有解析器和源文件，输出带来源证据的 JSONL/CSV，遇到争议条目停止并保存断点，不使用云服务。
+> 为我的实际工作构筑完整系统。发现现有资源，持续讨论关键需求，探索架构选择，再实施并核验整体目标。保留已有接口和无关改动；新凭据、费用或数据去向变化先和我讨论。
 
 Python execution needs Python 3.11+ and the packaged dependencies. Run the shared doctor first, reuse a compatible project environment and keep target state outside the plugin cache. The Skill does not initialize a project merely to discuss a plan.
 
 Python 执行需要 Python 3.11+ 及随包依赖。先运行共享 doctor，复用兼容项目环境，目标状态不要放在插件缓存中。仅讨论方案不会触发项目初始化。
 
-If Git access fails, download and extract the plugin ZIP and use the [local marketplace instructions](../README.md#git-connection-restricted). The complete Skill-suite ZIP belongs in a Skill host, not a plugin upload dialog.
+If Git access fails, use the plugin ZIP and a fresh extraction directory. Compare SHA256 with the accompanying manifest before installation. Keep the extracted source directory for refresh or rollback; native Codex manages its own installed cache copy. The complete Skill-suite ZIP belongs in a Skill host, not a plugin upload dialog.
 
-如果 Git 访问失败，可下载插件 ZIP，解压后按 [本地 marketplace 步骤](../README.zh-CN.md#git-连接受限怎么办) 安装。完整 Skill 套件用于 Skill 主机，不应放进插件上传窗口。
+Git 访问失败时，使用插件 ZIP 和新的解压目录，安装前比对随包清单中的 SHA256。保留解压源目录供刷新或回退，安装缓存由 Codex 原生管理。完整 Skill 套件用于 Skill 主机，不应放进插件上传窗口。
 
-## 2. Run the model-free example / 运行不调用模型的示例
+```powershell
+Get-FileHash ./agent-worksystem-builder-0.2.0-alpha.1-plugin.zip -Algorithm SHA256
+Expand-Archive ./agent-worksystem-builder-0.2.0-alpha.1-plugin.zip ./awb-0.2-candidate
+codex plugin marketplace add ./awb-0.2-candidate/agent-worksystem-builder
+codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
+```
+
+If an existing app session still exposes the old Skills, save your work and restart the app, then start a new conversation. MCP is optional and is not enabled automatically.
+
+应用仍显示旧模块时，保存工作并重启应用，再开启新会话。MCP 可选，不自动启用。
+
+## 2. Optional developer example / 可选开发示例（源码仓库）
 
 From a fresh repository checkout, create a project-local environment. Dependency installation may use the network; the demo itself runs local Python processors and makes no model call. If a compatible `.venv` already exists, reuse it.
 

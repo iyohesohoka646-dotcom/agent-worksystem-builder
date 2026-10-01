@@ -21,6 +21,10 @@ Select the same plugin identity in a new conversation. The full six-folder suite
 
 新会话中选择原有插件身份。完整六文件夹 Skill 套件需要一起安装；wheel 只提供 Python 运行时。不要手工覆盖用户插件缓存。
 
+The default installation ZIP contains only the plugin resources, not target examples, HTML UI or evaluation jobs. Developer tools and corpus remain in the source checkout; `python tools/package_plugin.py --developer` creates a separate `*-development.zip`. Candidate download and local installation instructions are in [quick start](quickstart.md); the native conversation is the plugin entrypoint.
+
+默认安装 ZIP 仅包含插件资源，不含目标样例、HTML 界面或评测任务。开发工具与语料保留在源码检出目录；`python tools/package_plugin.py --developer` 生成独立开发包。候选下载与本地安装见[快速上手](quickstart.md)，插件入口在原生会话中。
+
 ## Compatibility / 兼容
 
 Existing CLI commands and construction state remain supported. The SQLite state format stays at v1; new contracts are additional versioned records. Legacy projects with no saved architecture/profile/exploration retain unknown fields. The original goal comes from actual saved history, never an invented reconstruction. A goal change makes related architecture/profile stale and reopens decisions. New acceptance evidence must match current contracts, candidate bytes, configuration and verifier versions.

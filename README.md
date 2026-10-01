@@ -6,7 +6,7 @@ Build the intelligent system you need through dialogue, adaptive exploration, im
 
 [![Runtime and distribution CI](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
 
-An experimental Codex plugin for automatically designing, orchestrating, implementing and improving **whole intelligent systems**. Continuous requirement and decision grilling preserves the original goal. An evaluate → create → verify → decide loop explores alternatives, implements authorized changes, checks real software and returns consequential trade-offs to you.
+An experimental Codex plugin for automatically designing, orchestrating, implementing and improving **whole intelligent systems**. Continuous requirement and decision grilling preserves the original goal. An evaluate → create → verify → decide loop explores alternatives, implements authorized changes, checks real software and returns consequential trade-offs to you. Use it inside Codex; the plugin has no separate website, web workbench or always-on service.
 
 ## Three layers, open architecture
 
@@ -49,20 +49,20 @@ The 0.2.0-alpha.1 **unreleased candidate** includes persistent contracts/grill/e
 
 Actual Codex 0.158.0 access on C:/codex passed in both modes using the user-approved gpt-6-sol / max override. gpt-6.1-sol was unsupported on this login. Existing provider configuration and rules are inherited; no new account, key or paid service is provisioned.
 
-Engineering tests and access probes do not establish improved construction behavior. The qualification matrix is six cases × four conditions × five repeats = 120 complete attempts, with simulated users, actual artifact/run checks, frozen resources and bounded attempts. Human trial and official-directory review remain separate gates. Current evidence and limitations: [delivery status](docs/delivery-status.md), [evaluation protocol](evals/README.md).
+Engineering tests and access probes do not establish improved construction behavior. The qualification matrix is six cases × four conditions × five repeats = 120 complete attempts, with simulated users, actual artifact/run checks, frozen resources and bounded attempts. Human trial and official-directory review remain separate gates. Current evidence and limitations: [delivery status](docs/delivery-status.md), [evaluation protocol in the source repository](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/evals/README.md).
 
 ## Install
 
-Latest published version remains [0.1.0-alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4); its tag and assets are immutable. It has the earlier five-Skill suite, not the new 0.2 capabilities.
+The six-Skill **0.2 candidate plugin** is delivered separately from development resources: [plugin ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip), [integrity manifest](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.manifest.json). The ZIP contains no example application, HTML UI or evaluation jobs. Qualified version release remains pending; [alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4) and its immutable downloads remain available for rollback.
 
-For that published version:
+Install the current source candidate:
 
 ~~~powershell
-codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref v0.1.0-alpha.4
+codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref main
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 ~~~
 
-For a local 0.2 candidate, build the plugin ZIP and register its extracted local marketplace as described in [upgrade instructions](docs/upgrade-0.2.md). Open a new Codex conversation and select agent-worksystem-builder:building-agent-worksystems. Python runtime: Python 3.11+; reuse a compatible project environment and run the bundled doctor. Keep business/build data outside the plugin cache.
+For ZIP installation or restricted Git access, use the [local marketplace steps](docs/quickstart.md). Open a new Codex conversation and select `agent-worksystem-builder:building-agent-worksystems`, then describe your whole system goal. No website needs to be launched. Python runtime: Python 3.11+; reuse a compatible project environment and run the bundled doctor. Keep business/build data outside the plugin cache.
 
 The optional local MCP retains its eight materials tools and two resources. Broader construction uses native Skills/CLI; MCP is not enabled automatically. A Skill-suite ZIP is not a plugin-upload ZIP, and the Python wheel does not include Skills. ChatGPT import and official listing are not confirmed.
 

@@ -1,4 +1,5 @@
 """Build a deterministic, source-only plugin archive and its integrity receipt."""
+import argparse
 import json
 import sys
 import zipfile
@@ -22,17 +23,20 @@ def validate_skill_suite():
         raise ValueError("Modular Skill suite is incomplete: " + ", ".join(missing))
 
 
-def package(output=None):
+def package(output=None, *, developer=False):
     validate_skill_suite()
     manifest = read_json(ROOT / "plugin.json")
-    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "README.zh-CN.md", "PRIVACY.md", "TERMS.md", "pyproject.toml", "tools/demo.py", "tools/evaluate.py", "tools/host_preflight.py", "tools/evaluate_systems.py", "evals/README.md", "evals/scenarios.json", "evals/systems.json", "evals/system_checks.py")]
-    paths += [ROOT / "evals/system_gateway.py"]
-    paths += [ROOT / "tools/qualify_systems.py", ROOT / "tools/workbench_fault_probe.py"]
-    paths += [p for folder in (ROOT / "skills", ROOT / "assets", ROOT / "examples") for p in folder.rglob("*")
+    paths = [ROOT / name for name in ("plugin.json", ".codex-plugin/plugin.json", ".agents/plugins/marketplace.json", "README.md", "README.zh-CN.md", "PRIVACY.md", "TERMS.md", "pyproject.toml")]
+    folders = [ROOT / "skills", ROOT / "assets"]
+    if developer:
+        paths += [ROOT / name for name in ("tools/demo.py", "tools/evaluate.py", "tools/host_preflight.py", "tools/evaluate_systems.py", "tools/qualify_systems.py", "tools/workbench_fault_probe.py", "evals/README.md", "evals/scenarios.json", "evals/systems.json", "evals/system_checks.py", "evals/system_gateway.py")]
+        folders.append(ROOT / "examples")
+    paths += [p for folder in folders for p in folder.rglob("*")
               if distributable(p)]
     paths += [ROOT / "docs" / name for name in ("interfaces.md", "delivery-status.md", "plugin-submission.md", "plugin-architecture.md", "quickstart.md", "share.md", "release-alpha4.md", "upgrade-0.2.md", "intelligent-system-upgrade-plan.md")]
     paths += [ROOT / "docs/system-level-construction.md", ROOT / "docs/upgrade-review.md"]
-    output = Path(output) if output else ROOT / "dist" / f"agent-worksystem-builder-{manifest['version']}-plugin.zip"
+    kind = "development" if developer else "plugin"
+    output = Path(output) if output else ROOT / "dist" / f"agent-worksystem-builder-{manifest['version']}-{kind}.zip"
     output.parent.mkdir(parents=True, exist_ok=True)
     files = {}
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -43,8 +47,8 @@ def package(output=None):
             entry.external_attr = 0o100644 << 16
             archive.writestr(entry, path.read_bytes())
             files[relative] = file_digest(path)
-    receipt = {"name": manifest["name"], "version": manifest["version"], "archive": output.name,
-               "sha256": file_digest(output), "files": files, "excludes": ["user projects", "credentials", "development reports", "source planning documents", "bytecode"]}
+    receipt = {"name": manifest["name"], "version": manifest["version"], "archive": output.name, "bundle_kind": kind,
+               "sha256": file_digest(output), "files": files, "excludes": ["user projects", "credentials", "development reports", "source planning documents", "bytecode"] + ([] if developer else ["target application examples", "evaluation drivers and corpus"])}
     write_json(output.with_suffix(".manifest.json"), receipt)
     return receipt
 
@@ -79,4 +83,7 @@ def package_skill_suite(output=None):
 
 
 if __name__ == "__main__":
-    print(json.dumps(package(), ensure_ascii=False))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--developer", action="store_true", help="Separate development bundle with target examples and evaluation tools; not the installation deliverable")
+    args = parser.parse_args()
+    print(json.dumps(package(developer=args.developer), ensure_ascii=False))

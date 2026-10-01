@@ -6,7 +6,7 @@
 
 [![工程与分发检查](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/actions/workflows/ci.yml)
 
-这是一个实验性 Codex 插件，目标是自动设计、编排、实现并持续改进**完整智能系统**。持续需求与决策 grill 保留原始目标；“评估—创造—验证—决策”循环探索候选、实施已授权变更、检查真实软件，并将重大取舍交还用户讨论。
+这是一个实验性 Codex 插件，目标是自动设计、编排、实现并持续改进**完整智能系统**。持续需求与决策 grill 保留原始目标；“评估—创造—验证—决策”循环探索候选、实施已授权变更、检查真实软件，并将重大取舍交还用户讨论。直接在 Codex 原生会话中使用，插件自身没有单独的网站、网页工作台或常驻服务。
 
 ## 三层职责，开放架构
 
@@ -49,18 +49,20 @@
 
 同一个 C:/codex、Codex 0.158.0 宿主已通过 gpt-6-sol / max 的双模式真实访问；这是用户批准的模型覆盖，未修改全局配置。gpt-6.1-sol 在该登录下不受支持。复用现有提供商配置和规则，不自动开通账户、密钥或收费服务。
 
-工程测试和访问预检不能证明构筑效果提升。完整对照要求六个场景、四个条件、各五次，共 120 次完整构筑尝试，固定宿主与资源、保留所有失败，并检查实际运行结果。模拟用户明确标注；真实人工试用、ChatGPT 导入及官方目录审核分别记录。详见[交付状态](docs/delivery-status.md)和[评测协议](evals/README.md)。
+工程测试和访问预检不能证明构筑效果提升。完整对照要求六个场景、四个条件、各五次，共 120 次完整构筑尝试，固定宿主与资源、保留所有失败，并检查实际运行结果。模拟用户明确标注；真实人工试用、ChatGPT 导入及官方目录审核分别记录。详见[交付状态](docs/delivery-status.md)和[源码仓库中的评测协议](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/evals/README.md)。
 
 ## 安装与使用
 
-最新已发布版本仍为 [0.1.0-alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4)，旧标签及附件保持不变。该版本包含旧五模块套件，不包含本轮全部升级。
+交付六模块的 **0.2 候选插件**：[下载插件 ZIP](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/raw/refs/heads/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.zip)，[查看完整性清单](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/blob/main/packages/0.2.0-alpha.1/agent-worksystem-builder-0.2.0-alpha.1-plugin.manifest.json)。安装包不包含网站示例、HTML 界面或评测任务；合格版本发布仍待验收。[alpha.4](https://github.com/iyohesohoka646-dotcom/agent-worksystem-builder/releases/tag/v0.1.0-alpha.4) 的固定标签及附件保留，供回退使用。
+
+从源码安装当前候选版：
 
 ~~~powershell
-codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref v0.1.0-alpha.4
+codex plugin marketplace add iyohesohoka646-dotcom/agent-worksystem-builder --ref main
 codex plugin add agent-worksystem-builder@agent-worksystem-builder-plugins
 ~~~
 
-本地候选版按[升级说明](docs/upgrade-0.2.md)构建插件 ZIP，解压并注册本地 marketplace；开启新会话，选择 agent-worksystem-builder:building-agent-worksystems。Python 运行时需要 3.11+ 及随包依赖，优先复用兼容项目环境并运行 doctor。目标业务数据和建设记录放在插件缓存之外。
+ZIP 安装与 Git 连接受限时使用[本地 marketplace 步骤](docs/quickstart.md)。开启新会话，选择 `agent-worksystem-builder:building-agent-worksystems`，直接描述完整系统目标，无需打开网站。Python 运行时需要 3.11+ 及随包依赖，优先复用兼容项目环境并运行 doctor。目标业务数据和建设记录放在插件缓存之外。
 
 可选本地 MCP 仍提供八个材料工具和两个资源；广义建设通过原生 Skill／CLI 完成，不自动启用 MCP。Skill 套件 ZIP 与插件上传 ZIP 用途不同，wheel 不包含 Skill。ChatGPT 导入与官方上架尚未确认。
 

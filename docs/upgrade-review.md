@@ -17,7 +17,7 @@ The fresh read-only review reproduced six important issues. Failing regression t
 | Unrelated service credited to new startup / 无关服务可能被记作新启动 | Reject pre-existing endpoints; verify owned instance token / 拒绝已运行端点，核验自有实例 | test_startup_cannot_claim_an_already_running_unrelated_service |
 | Zero interactive budget ignored / 交互零调用预算被忽略 | Reserve budget before transport start / 接入前占用预算 | test_interactive_zero_call_budget_stops_before_transport_start |
 
-Latest full engineering run passed 163 tests, including the added qualification/scope/fault-probe regressions. Fresh wheel install/import/contracts/CLI passed; native isolated-home installation and six-Skill discovery passed. Neither establishes a behavioral improvement or human qualification.
+Latest full engineering run passed 165 tests, including qualification/scope/fault-probe and installation/development-bundle separation. Fresh wheel install/import/contracts/CLI passed; native isolated-home and actual user-home installations, cache bytes and six-Skill discoveries passed. Neither establishes a behavioral improvement or human qualification.
 
 ## Actual access / 真实访问
 
@@ -25,7 +25,7 @@ User-approved gpt-6-sol/max passed actual exec and app-server on the same C:/cod
 
 ## Qualification boundaries / 资格边界
 
-- The 120-attempt matrix is running, not completed or qualified. Keep all failed, cancelled, timed-out and environment outcomes. Setup/isolation failures stay separate from construction attempts; no attempted cell is silently retried.
+- The 120-attempt matrix is checkpointed for user-requested plugin installation, not completed or qualified. Fourteen attempts finished; the fifteenth is preserved as interrupted with its original running receipt and unavailable final metrics. Keep all failed, cancelled, timed-out and environment outcomes. Setup/isolation failures stay separate from construction attempts; no attempted cell is silently retried. Recheck frozen bindings/isolation before resume; do not treat changed instructions/cache paths as the original context.
 - The frozen workbench grader has an output/node-call binding gap. The independent read-only qualifier exposes it; do not silently change grading mid-matrix. Wrong-node-result and broader recovery/resource/semantic checks remain required.
 - A workbench attempt reached 900 seconds; observed receipt time includes cleanup beyond the deadline. Retain the overrun for hard-constraint review, without subtracting it or converting failure to pass.
 - Another workbench attempt observed a ninth completed code-change batch before interruption. The harness records that budget breach rather than reporting eight. Its frozen guard stops subsequent work; these observations remain unresolved strict-budget qualification gaps.

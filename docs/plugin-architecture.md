@@ -25,6 +25,6 @@ MCP 提供八个结构化工具：项目绑定查询、初始化、状态、下�
 
 包中没有启用外部集成引用。已有解析器、其他 Skill、文档与仓库 MCP 的选择路径，以及持久工作流框架的引入条件，见随包的 [复用指南](../skills/building-agent-worksystems/references/integrations-and-skills.md)。这些链接提供选型依据，不自动安装或执行外部项目。保持参考说明本地可读，具体复用先检查版本、许可证、指令、数据目的地与当前主机支持。公开包不包含凭据或用户数据；示例宿主路径可按环境修改，不携带本机业务路径、虚拟环境、开发元数据或已启用的 MCP 配置。
 
-完整插件还分发 `tools/evaluate.py`、合成 development/holdout 题库和协议说明，支持冻结旧版与新版 Skill 后进行实际产物配对评测。独立 Skill ZIP 与 wheel 不包含此开发评测工具；运行时仍只有一份。当前检查验证执行器与分发接口，没有建立真实模型效果提升。
+默认插件安装包只分发六个 Skill、共享运行时、可选 MCP 代码、元数据与使用说明，不含 `examples/`、`evals/` 或 `tools/`。网站及其他目标样例留在源码仓库；开发者可用 `tools/package_plugin.py --developer` 生成单独的 `*-development.zip`，其中保留评测执行器及题库。开发包不作为用户安装交付。评测参考文件中的“完整插件／仓库”路径指这套开发资源。独立 Skill ZIP 与 wheel 同样不包含开发评测工具；运行时仍只有一份。当前检查验证执行器与分发接口，没有建立真实模型效果提升。
 
 这种分离符合 OpenAI 的 [插件打包说明](https://developers.openai.com/plugins/build/plugins)。MCP Skills 扩展需要客户端支持，OpenAI 门户 [导入 MCP Skill](https://developers.openai.com/plugins/build/skills) 则在扫描时制作草稿快照，ChatGPT/Codex 不在运行时从服务器拉取 Skill。若将来提交带 MCP 的官方插件，须在首次 ZIP 中声明所需 MCP；当前平台不支持给已发布 skills-only 插件再新增 MCP，见 [官方提交说明](https://developers.openai.com/plugins/deploy/submission)。当前候选只构筑和核验本地插件，不提交官方目录。
